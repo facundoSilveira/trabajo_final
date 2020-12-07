@@ -25,7 +25,7 @@ class Cliente extends Model
         return $this->hasMany(Equipo::class);
     }
 
-    public function enviarMail($data){
+    public function enviarMail($informe, $hayStock){
 
         // $obj = new stdClass() ;
         // $obj->sender = 'PC-SHOP' ;
@@ -33,7 +33,7 @@ class Cliente extends Model
 
         // $mail = new EnvioEmail($obj) ;
 
-        Mail::send('mails.cliente', ['data' => $data], function ($message) {
+        Mail::send('mails.cliente', ['informe' => $informe , 'hayStock' => $hayStock], function ($message) {
             $message->to($this->email)->subject('PC-SHOP');
         });
 
