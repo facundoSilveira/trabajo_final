@@ -52,12 +52,13 @@ class RecursoController extends Controller
         $data = request()->validate([
             'nroSerie' => 'required|unique:recursos',
             'modelo_id' => 'required',
-            'tipo_recurso_id' => 'required',
+            'tipo_recurso_id.*' => 'required',
             'marca_recurso_id' => 'required',
             'medida_id' => 'required',
             'modelo_id' => 'required',
             'tamaño' => 'required',
             'stockMinimo' => 'required',
+
 
         ]) ;
          $sql = 'SELECT * FROM recursos';
