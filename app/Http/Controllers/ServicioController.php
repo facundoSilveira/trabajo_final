@@ -14,6 +14,7 @@ use App\InformeServicioRecurso;
 use App\RecursoUtilizado;
 use App\Tecnico;
 use App\Configuracion;
+use App\ServicioTipoServicio;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -76,7 +77,7 @@ class ServicioController extends Controller
             $servicio->problemaCliente = $request->problemaCliente ;
             $servicio->contraseña = $request->contraseña ;
             $servicio->prioridad_id = $request->prioridad_id;
-            $servicio->tipo_servicio_id = $request->tipo_servicio_id;
+           // $servicio->tipo_servicio_id = $request->tipo_servicio_id;
             $servicio->equipo_id = $request->equipo_id;
             $servicio->tecnico_id = $request->tecnico_id;
 
@@ -85,6 +86,16 @@ class ServicioController extends Controller
           // return $request;
             $servicio->save();
             $servicio->accesorios()->sync($request->accesorios_id);
+            for ( $i = 0; $i < sizeof( $request->tipo_servicio_id ); $i++){
+                // $recurso = Recurso::find($request->recurso[$i]);
+                // return $recurso->precio;
+                $tipoServicio = new ServicioTipoServicio();
+
+                $tipoServicio->servicio_id = $servicio->id;
+
+                $tipoServicio->tipo_servicio_id= $request->tipo_servicio_id[$i];
+                $tipoServicio->save();
+            }
             $historial = new HistorialEstado();
             $historial->servicio_id = $servicio->id;
           //  return $historial->estado->id[1]->nombre;
@@ -147,8 +158,9 @@ class ServicioController extends Controller
         $servicios = Servicio::all();
         $prioridades = Prioridad::all();
         $estados = Estado::all();
+        $configuracion = Configuracion::first();
       //  return $prioridades;
-        return view('mis_servicios.index', compact('servicios', 'prioridades', 'estados'));
+        return view('mis_servicios.index', compact('servicios', 'prioridades', 'estados', 'configuracion'));
     }
 
     public function finalizar_servicio(Servicio $servicio)
@@ -186,6 +198,8 @@ class ServicioController extends Controller
             $historial->estado_id = $estado + 1;
             $historial->date = Carbon::now();
             $historial-> save();
+            $informe->update();
+            return redirect()->route('mis_servicios.index', $informe->servicio)->with('success','Se cambio al estado CONFIRMADO');
 
 
         }else{
@@ -195,23 +209,26 @@ class ServicioController extends Controller
             for ($i=0; $i < sizeof( $informe->informeRecurso ) ; $i++) {
                 $informeRecurso = $informe->informeRecurso[$i]->id;
                 $informeRecurso = InformeServicioRecurso::find($informeRecurso);
-                $informeRecurso->reserva == null;
+                $informeRecurso->reserva = null;
                 $informeRecurso->update();
+
             }
 
-
+          //  return $informeRecurso;
             //print $informe->informeRecurso->reserva;
             $estados = Estado::all();
-            $estado = $estados->get(sizeof($estados)-1) ;
+            $estado = $estados->get(sizeof($estados)-2) ;
             $historial = new HistorialEstado();
             $historial->servicio_id = $informe->servicio->id;
             $historial->estado_id = $estado->id;
             $historial->date = Carbon::now();
             $historial-> save();
+            $informe->update();
+            return redirect()->route('mis_servicios.index', $informe->servicio)->with('success','Se cambio al estado CANCELADO y se libera el recurso resevado');
+
 
         }
-        $informe->update();
-        return redirect()->route('mis_servicios.index', $informe->servicio);
+
     }
 
     public function enviar_informe(InformeServicio $informe)
@@ -239,6 +256,17 @@ class ServicioController extends Controller
     //     }
     //     return redirect()->route('mis_servicios.index', $servicio);
     // }
+    public function entregar_servicio(Servicio $servicio, Request $request){
+        $estados = Estado::all();
+        $estado = $estados->get(sizeof($estados)-1) ;
+        $historial = new HistorialEstado();
+        $historial->servicio_id = $servicio->id;
+        $historial->estado_id = $estado->id;
+        $historial->date = Carbon::now();
+        $historial-> save();
+        //$informe->update();
+        return redirect()->route('mis_servicios.index', $servicio)->with('success','Se cambio al estado ENTREGADO y se entrega el equpo al cliente');
+    }
 
     public function atender_servicio(Servicio $servicio, Request $request){
         $estado = $servicio->historiales->last()->estado->id;
@@ -248,35 +276,37 @@ class ServicioController extends Controller
         $historial->date = Carbon::now();
         $historial-> save();
 
-        return redirect()->route('mis_servicios.index', $servicio);
+        return redirect()->route('mis_servicios.index', $servicio)->with('success','Se cambio al estado del servicio del cliente '.$servicio->equipo->cliente->nombre.' '.$servicio->equipo->cliente->apellido);
     }
     public function ver_servicio(Servicio $servicio)
     {
         switch ($servicio->getEstado()) {
             case 'Pendiente':
-                return view('mis_servicios.pendiente',  compact('servicio'));
+                return view('mis_servicios.pendiente',  compact('servicio'))->with('success','El servicio se ha iniciado, y se cambio al estado EN REVISION');
                 break;
 
             case 'En Revision':
-                return view('mis_servicios.revision', compact('servicio') );
+                return view('mis_servicios.revision', compact('servicio'))->with('success','Se cambio al estado EN ESPERA y se envio el informe al cliente');
             break;
 
             case 'En Espera':
-                return view('mis_servicios.espera', compact('servicio') );
+                return view('mis_servicios.espera', compact('servicio'))->with('success','Se cambio al estado EN ESPERA y se envio el informe al cliente');
                 break;
             case 'Confirmado':
-                return view('mis_servicios.confirmado', compact('servicio') );
+                return view('mis_servicios.confirmado', compact('servicio'))->with('success','Se cambio al estado CONFIRMADO');
                     break;
             case 'Cancelado':
-                return view('mis_servicios.cancelado', compact('servicio') );
+                return view('mis_servicios.cancelado', compact('servicio'))->with('success','Se cambio al estado EN ESPERA y se envio el informe al cliente');
                 break;
             case 'En Proceso':
-                return view('mis_servicios.proceso', compact('servicio') );
+                return view('mis_servicios.proceso', compact('servicio'))->with('success','Se cambio al estado FINALIZADO y se espera por el retiro del cliente');
                 break;
             case 'Finalizado':
-                return view('mis_servicios.finalizado', compact('servicio') );
+                return view('mis_servicios.finalizado', compact('servicio'))->with('success','Se cambio al estado EN ESPERA y se envio el informe al cliente');
                 break;
-
+            case 'Entregado':
+                return view('mis_servicios.entregado', compact('servicio'));
+                    break;
 
         }
     }
