@@ -64,7 +64,7 @@ class MovimientoController extends Controller
 
         ]) ;
         //creo la cabecera de movimiento
-
+        //
         $cabeceraMovimiento = new CabeceraMovimiento();
 
         $cabeceraMovimiento->fecha= $request->fecha;
@@ -73,7 +73,7 @@ class MovimientoController extends Controller
         $cabeceraMovimiento->tipo_comprobante_id = $request->tipo_comprobante_id ;
         $cabeceraMovimiento->proveedor_id = $request->proveedor_id ;
         $cabeceraMovimiento->save();
-
+       // return $request;
     try{
         for ( $i = 0; $i < sizeof( $request->cantidad ); $i++){
             $movimiento = new Movimiento();
@@ -86,12 +86,15 @@ class MovimientoController extends Controller
            // return $recurso;
            // $recurso->stock = $recurso->stock + $request->cantidad[$i];
            //return $request->recurso[$i];
-           $movimiento->save();
-            $movimiento->recurso->stock = $movimiento->recurso->stock + $request->cantidad[$i];
+            $movimiento->save();
+           // return $movimiento;
+            $recurso = Recurso::find($request->recurso[$i]) ;
+            //return $recurso;
+            $recurso->stock = $recurso->stock + $request->cantidad[$i];
+            $recurso->precio =  $request->precio[$i] ;
+          //  print 'recurso->stock';
 
-          //  print '$movimiento->recurso->stock';
-
-            $movimiento->recurso->update();
+            $recurso->update();
 
         }
         return redirect(route('movimientos.index'))->with('success','movimiento registrado con exito!');
