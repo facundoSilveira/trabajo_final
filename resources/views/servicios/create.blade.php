@@ -52,14 +52,15 @@
                             ><i class="fas fa-plus-circle fa-md"></i></a>
                         </label>
 
-                        <select class="seleccion form-control" name="tipo_servicio_id" id="tipo_servicio" required>
-                            <option value="" disabled selected>--Seleccione un tipo_servicio--</option>
+                        <select class="seleccion form-control" name="tipo_servicio_id[]" id="tipo_servicio" multiple required>
+                            {{-- <option value="" disabled selected>--Seleccione un tipo_servicio--</option> --}}
                             @foreach($tipo_servicios as $tipo_servicio)
                             <option value="{{$tipo_servicio->id}}" @if(old('tipo_servicio_id')==$tipo_servicio->id) selected
                                 @endif>{{$tipo_servicio->nombre}} </option>
                             @endforeach
                         </select>
                     </div>
+
             </div>
             <div class="col-3">
                 <div class="form-group">
@@ -87,7 +88,7 @@
                         <a role="button" type="button" href="{{route('accesorios.create')}}" title="Nuevo Accesorio"><i
                                 class="fas fa-plus-circle fa-md"></i></a>
                     </label>
-                    <select class="form-control" name="accesorios_id[]"  id="accesorio" multiple required>
+                    <select class="form-control" name="accesorios_id[]"  id="accesorio" multiple >
 
                         @foreach($accesorios as $accesorio)
                         <option value="{{$accesorio->id}}" @if(old('accesorio_id')==$accesorio->id) selected
@@ -181,9 +182,12 @@
 <script>
 
         $("#accesorio").select2({
-            placeholder: "seleccione un aasdasd"
+            placeholder: "seleccione un accesorio"
         });
 
+        $("#tipo_servicio").select2({
+            placeholder: "seleccione un tipo de servicio"
+        });
 
 </script>
 

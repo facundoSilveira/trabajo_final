@@ -22,7 +22,7 @@
                 <ul>
                     <li class="list-group-item">
                         @foreach ($servicio->tipos as $tipo)
-                            <b>{{ $tipo->tipo->nombre }}</b>
+                        <b>{{ $tipo->tipo->nombre }}</b>
                        @endforeach
                         <a class="float-right">
                             <span class="badge badge-pill bg-light">Tipo de servicio</span>
@@ -63,7 +63,7 @@
                         <a class="float-right">
                             <span class="badge badge-pill bg-light">Estado del Servicio</span>
                         </a>
-
+                  
                     </li>
 
                 </ul>

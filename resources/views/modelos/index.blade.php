@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -19,7 +19,7 @@
             <tbody>
                 @foreach ($modelos as $modelo)
                 <tr>
-                    <td>{{$modelo->id}}</td>
+                    <td class="text-right">{{$modelo->id}}</td>
                     <td>{{$modelo->nombre}}</td>
 
                     <td class="text-right">

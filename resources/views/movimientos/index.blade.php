@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">Tipo de movimiento</th>
@@ -23,9 +23,9 @@
                 <tr>
                     <td>{{$movimiento->tipoMovimiento->nombre}}</td>
                     <td>{{$movimiento->recurso->tipo_recurso->nombre}} {{$movimiento->recurso->tamaño}} {{$movimiento->recurso->medida->nombre}}</td>
-                    <td>{{$movimiento->cantidad}}</td>
-                    <td>{{$movimiento->precio}}</td>
-                    <td>{{$movimiento->cabeceraMovimiento->fecha}}</td>
+                    <td class="text-right">{{$movimiento->cantidad}}</td>
+                    <td class="text-right">{{$movimiento->precio}}</td>
+                    <td class="text-right">{{$movimiento->cabeceraMovimiento->fecha}}</td>
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('movimientos.edit', $movimiento->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$movimiento->id}}>Borrar</a>

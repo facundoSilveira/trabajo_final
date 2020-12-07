@@ -14,12 +14,17 @@
                     </span>
                 </div>
 
-                <h3 class="profile-username text-center">{{ $servicio->tipo_servicio->nombre }} para
+                <h3 class="profile-username text-center">@foreach ($servicio->tipos as $tipo)
+                    <b>{{ $tipo->tipo->nombre }}</b>
+                    @endforeach para
                     {{ $servicio->equipo->cliente->nombre }} {{ $servicio->equipo->cliente->apellido }}</h3>
 
                 <ul>
                     <li class="list-group-item">
-                        <b>{{ $servicio->tipo_servicio->nombre }}</b>
+                        @foreach ($servicio->tipos as $tipo)
+                        <b>{{ $tipo->tipo->nombre }}</b>
+                        @endforeach
+
                         <a class="float-right">
                             <span class="badge badge-pill bg-light">Tipo de servicio</span>
                         </a>
@@ -101,7 +106,7 @@
 
                         <dl class="row" style="margin-left: 1%">
                             <dt class="col-sm-3">Precio de trabajo</dt>
-                            <dd class="col-sm-8 text-muted">${{ $servicio->tipo_servicio->precio }}</dd>
+                            <dd class="col-sm-8 text-muted">${{ $servicio->getPrecio() }}</dd>
                         </dl>
 
 

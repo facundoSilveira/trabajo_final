@@ -50,6 +50,8 @@ Route::get('mis_servicios/confirmar/{valor}-{informe}', 'ServicioController@aten
 Route::get('mis_servicios/show_servicio_espera/{informe}', 'ServicioController@enviar_informe')->name('show_servicio_espera');
 Route::get('ver_servicio/{servicio}', 'ServicioController@ver_servicio')->name('ver_servicio');
 Route::get('informes/{id}/getServicio', 'InformeServicioController@getServicio')->name('informes.getServicio');// todas las rutas para el CRUD de Servicio
+Route::get('servicios/{servicio}/entregar_servicio', 'ServicioController@entregar_servicio')->name('servicios.entregar_servicio');// todas las rutas para el CRUD de Servicio
+
 
 
 Route::get('configuracion', 'ConfiguracionController@index')->name('configuracion.index');

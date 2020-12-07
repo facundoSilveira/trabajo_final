@@ -11,7 +11,7 @@
         </form>
     </div>
     <div class="card-body">
-        <div class="table-responsive table-sm">
+        <div class="table-responsive table-bordered table-sm">
             <table id="auditorias" class="table table-bordered table-striped table-hover dataTable">
                 <thead>
                     <tr>
@@ -30,8 +30,8 @@
                         <td>{{$auditoria->auditable_id}}</td>
                         <td>EQUIPOS</td>
                         <td style="text-transform:uppercase">{{$auditoria->event}}</td>
-                        <td>{{$auditoria->created_at->format('d/m/Y')}}</td>
-                        <td>{{$auditoria->created_at->format('H:i:s')}}</td>
+                        <td class="text-right">{{$auditoria->created_at->format('d/m/Y')}}</td>
+                        <td class="text-right">{{$auditoria->created_at->format('H:i:s')}}</td>
                         {{-- <td>{{$auditoria->user->apellido}} {{$auditoria->user->name}}</td> --}}
                         <td></td>
                         <td width="150px" class="text-center">

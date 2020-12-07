@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -22,10 +22,10 @@
             <tbody>
                 @foreach ($proveedores as $proveedor)
                 <tr>
-                    <td>{{$proveedor->id}}</td>
+                    <td class="text-right">{{$proveedor->id}}</td>
                     <td>{{$proveedor->nombre}}</td>
-                    <td>{{$proveedor->cuit}}</td>
-                    <td>{{$proveedor->telefono}}</td>
+                    <td class="text-right">{{$proveedor->cuit}}</td>
+                    <td class="text-right">{{$proveedor->telefono}}</td>
                     <td>{{$proveedor->email}}</td>
 
                     <td class="text-right">

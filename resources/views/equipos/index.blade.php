@@ -9,7 +9,7 @@
     </div>
 
     <div class="card-body">
-        <table id="datatable" class="table table-borderless table-dark dataTable">
+        <table id="datatable" class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
 

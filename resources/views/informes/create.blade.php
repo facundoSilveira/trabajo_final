@@ -22,51 +22,57 @@
            </ul>
         </div>
         @endif
-        <div class="row">
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Presupuesto</label>
-                    <input type="text" name="presupuesto" id="presupuesto" value="{{ old('presupuesto') }}" class="form-control"
-                    placeholder="presupuesto">
+        <div class="card-body">
+            <div class="row ">
+                <input type="hidden" name="servicio_id" id="" value="{{$id}}" class="form-control">
+
+
+                <div class="col-6">
+                    <div class="form-group ">
+                        <label for="tipo_servicio"  class=" col-form-label text-md-right">Problema Tecnico</label>
+                        {{-- <input type="text" name="problemaTecnico" value="" placeholder="Por favor describa el problema tecnico"> --}}
+                        <label for="agregar_tipo_servicio">
+                            <!-- estamos indicando a la etiqueta a que habra el modal cuyo id es modal-lg-->
+                            <i title="Precios" id="popover" onclick="milagro()" class="fas fa-question-circle"
+                                    data-content="">
+                                </i>
+                            <a role="button" type="button" href="#" title="Nuevo tipo servicio" data-toggle="modal"
+                            data-target="#modal-lg" role="button"
+                            data-toggle="modal" data-target="#modal-lg"
+                            ><i class="fas fa-plus-circle fa-md"></i></a>
+                        </label>
+
+                        <select class="seleccion form-control" name="tipo_servicio_id[]" id="tipo_servicio" multiple required>
+                            {{-- <option value="" disabled selected>--Seleccione un tipo_servicio--</option> --}}
+                            <script>
+                                var tipoServicios = []
+                            </script>
+                            @foreach($tipo_servicios as $tipo_servicio)
+                            <script>
+                                tipoServicios.push('{{$tipo_servicio->nombre}} ${{$tipo_servicio->precio}}')
+                            </script>
+                                @if($servicio->tipos->contains('tipo_servicio_id', $tipo_servicio->id) )
+                                    <option value="{{$tipo_servicio->id}}" selected>{{$tipo_servicio->nombre}} </option>
+                                @else
+                                    <option value="{{$tipo_servicio->id}}">{{$tipo_servicio->nombre}} </option>
+                                @endif
+                            @endforeach
+                            @foreach ($tipo_servicios as $tipo_servicio )
+                            <input type="hidden" name="valorPrecio" id="{{$tipo_servicio->id}}" value="{{$tipo_servicio->precio}}">
+                            @endforeach
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <input type="hidden" name="servicio_id" id="" value="{{$id}}" class="form-control">
-
-
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Problema Tecnico</label>
-                    <input type="text" name="problemaTecnico" id="problemaTecnico" value="{{ old('problemaTecnico') }}" class="form-control"
-                    placeholder="Ingrese el numero del comprobante">
+                <input type="hidden" name="subtotal" id="subtotal" value="{{$servicio->getPrecio()}}">
+                <div class="col-4">
+                    <div class="form-group">
+                        <label for="">Descripcion</label>
+                        <textarea type="text" name="descripcion" id="Descripcion" value="{{ old('Descripcion') }}" class="form-control"
+                        placeholder="Ingrese el numero del comprobante"></textarea>
+                    </div>
                 </div>
-            </div>
-
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Descripcion</label>
-                    <input type="text" name="descripcion" id="Descripcion" value="{{ old('Descripcion') }}" class="form-control"
-                    placeholder="Ingrese el numero del comprobante">
-                </div>
-            </div>
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Fecha Inicio</label>
-                    <input type="date" name="fechaInicio" id="fechaInicio" value="{{ old('fechaInicio') }}"class="form-control"
-                    placeholder="Ingrese el fecha ">
-                </div>
-            </div>
-
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Fecha Fin</label>
-                    <input type="date" name="fechaFin" id="fechaFin" value="{{ old('fechaFin') }}"class="form-control"
-                    placeholder="Ingrese el fecha ">
-                </div>
-            </div>
-
-
-    </div>
-
+        </div>
+        </div>
 
     <div class="card card-primary card-outline">
         <div class="card-header">
@@ -75,38 +81,49 @@
             </h5>
         </div>
 
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group ">
-                    <label for="recurso" class=" col-form-label text-md-right">Recurso</label>
-                    <label for="agregar_recurso">
-                        <a role="button" type="button" href="{{route('recursos.create')}}" title="Recurso"><i
-                                class="fas fa-plus-circle fa-md"></i></a>
-                    </label>
-
-                    <select class="form-control" name="recur"  id="recurso_id" >
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group ">
+                        <label for="recurso" class=" col-form-label text-md-right">Recurso</label>
+                        <label for="agregar_recurso">
+                            <i title="Precios" id="popover2"  class="fas fa-question-circle"
+                            data-content="">
+                             </i>
+                            <a role="button" type="button" href="{{route('recursos.create')}}" title="Recurso"><i
+                                    class="fas fa-plus-circle fa-md"></i></a>
+                        </label>
+                        <script>var precioRecurso=[]</script>
+                        <select class="form-control" name="recur"  id="recurso_id" >
+                            @foreach($recursos as $recurso)
+                            <script>
+                                precioRecurso.push('{{$recurso->tipo_recurso->nombre}} ${{$recurso->precio}}')
+                            </script>
+                            <option value="{{$recurso->id}}" @if(old('recur')==$recurso->id) selected
+                                @endif>{{$recurso->tipo_recurso->nombre}} {{$recurso->modelo->nombre}} {{$recurso->tamaño}} {{$recurso->medida->nombre}}</option>
+                            @endforeach
+                        </select>
                         @foreach($recursos as $recurso)
-                        <option value="{{$recurso->id}}" @if(old('recur')==$recurso->id) selected
-                            @endif>{{$recurso->tipo_recurso->nombre}} {{$recurso->modelo->nombre}} {{$recurso->tamaño}} {{$recurso->medida->nombre}}</option>
+                        <input type="hidden" name="valorRecurso" id="recurso{{$recurso->id}}" value="{{$recurso->precio}}">
                         @endforeach
-                    </select>
+                    </div>
                 </div>
-            </div>
 
 
 
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Cantidad</label>
-                    <input type="text" name="cant" id="cantidad_id" value="{{ old('cant') }}"class="form-control"
-                    placeholder="Ingrese la cantidad de recursos">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="">Cantidad</label>
+                        <input type="text" name="cant" id="cantidad_id" value="{{ old('cant') }}"class="form-control"
+                        placeholder="Ingrese la cantidad de recursos">
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-2 mt-4 pt-2">
-                <button type="button" class="btn btn-primary btn-sm " id="addRow"><i class="fa fa-check"></i> </button>
-            </div>
-         </div>
+                <div class="col-2 mt-4 pt-2">
+                    <button type="button" class="btn btn-primary btn-sm " id="addRow"><i class="fa fa-check"></i> </button>
+                </div>
+             </div>
+        </div>
 
         <div class="card-body">
             <table class="table table-borderless table-dark">
@@ -124,6 +141,16 @@
 
                 </tbody>
             </table>
+            <br>
+            <div class="row float-right">
+                <label for="">Presupuesto $</label>
+                <div class="col-8">
+                    <div class="form-group">
+                        <input type="text" name="presupuesto" id="presupuesto" readonly value="" class="form-control"
+                        placeholder="presupuesto">
+                    </div>
+                </div>
+            </div>
         </div>
 
         <div class="card-footer float">
@@ -138,6 +165,65 @@
 
 @endsection
 @push('scripts')
+<script>
+    $( document ).ready(function(){
+        $("#tipo_servicio").select2({
+            placeholder: "seleccione un tipo de servicio"
+        });
+
+    })
+
+    function milagro(){
+        var contenidoPopover = '<ul>'
+        console.log(tipoServicios)
+        tipoServicios.map((tipo)=> {
+            contenidoPopover += '<li>'+tipo+'</li>'
+        })
+        contenidoPopover += '</ul>'
+         $(function () {
+                $('#popover').popover({
+                    html:true,
+                    content: contenidoPopover
+                });
+
+            })
+    }
+
+    var contenidoPopover = '<ul>'
+
+        precioRecurso.map((recurso)=> {
+            contenidoPopover += '<li>'+recurso+'</li>'
+        })
+        contenidoPopover += '</ul>'
+         $(function () {
+                $('#popover2').popover({
+                    html:true,
+                    content: contenidoPopover
+                });
+
+            })
+
+</script>
+<script>
+    $(document).ready( function (){
+        subtotal = $('#subtotal').val()
+        $('#presupuesto').val(subtotal)
+
+    })
+
+    $('#tipo_servicio').change(function () {
+        tiposServicios = $('#tipo_servicio').val()
+        subtotal = 0
+        if(tiposServicios.length == 0 ){
+            $('#presupuesto').val(0)
+        }
+        tiposServicios.map((tipo) => {
+            precio = $('#'+tipo).val()
+            subtotal += parseFloat(precio)
+            $('#presupuesto').val(subtotal)
+        })
+    })
+</script>
 <script>
     $('#addRow').on('click',function(){
     addRow();
@@ -178,6 +264,14 @@
                     });
         }
 
+        total = 0
+        subtotal = $('#presupuesto').val()
+        console.log('recurso '+ recurso_select_id)
+        precioProducto = $('#recurso'+recurso_select_id).val()
+        console.log('preico prod ' + precioProducto )
+        total += parseFloat(subtotal) + parseFloat(precioProducto * cantidad)
+        $('#presupuesto').val(total)
+
     }
 
     function limpiar(){
@@ -193,6 +287,10 @@
         //     alert("No es posible eliminar la ultima fila");
         // }
         // else{
+
+
+            total = total - (precioProducto * cantidad)
+            $('#presupuesto').val(total)
             $(this).parent().parent().remove();
         //}
 

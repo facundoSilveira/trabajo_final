@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -22,11 +22,11 @@
             <tbody>
                 @foreach ($tecnicos as $tecnico)
                 <tr>
-                    <td>{{$tecnico->id}}</td>
+                    <td class="text-right">{{$tecnico->id}}</td>
                     <td>{{$tecnico->nombre}}</td>
                     <td>{{$tecnico->apellido}}</td>
-                    <td>{{$tecnico->dni}}</td>
-                    <td>{{$tecnico->telefono}}</td>
+                    <td class="text-right">{{$tecnico->dni}}</td>
+                    <td class="text-right">{{$tecnico->telefono}}</td>
                     <td>{{$tecnico->email}}</td>
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('tecnicos.edit', $tecnico->id) }}">Editar</a>

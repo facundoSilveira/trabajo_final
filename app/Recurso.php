@@ -50,4 +50,15 @@ class Recurso extends Model
             }
             return $stockReal-$stockReservado;
         }
+
+        public function getReservas(){
+            $cantReservas = 0;
+            $reservas = InformeServicioRecurso::where(['recurso_id'=>$this->id, 'reserva'=>1])->get();
+            foreach ($reservas as $reserva) {
+                $cantReservas += $reserva->cantidad;
+            }
+
+            return $cantReservas;
+
+        }
 }

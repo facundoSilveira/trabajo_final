@@ -2,6 +2,7 @@
 
 use App\Accesorio;
 use App\Cliente;
+use App\Configuracion;
 use App\Direccion;
 use App\Equipo;
 use App\Estado;
@@ -215,6 +216,16 @@ class GenerarSeed extends Seeder
         ]);
         Estado::create([
             'nombre' => 'Cancelado'
+        ]);
+        Estado::create([
+            'nombre' => 'Entregado'
+        ]);
+        Configuracion::create([
+            'nombre' => 'PC Shop',
+            'direccion' => 'Andresito 456',
+            'telefono' => '3758529538',
+            'email' => 'pcshopapostoles@gmail.com' ,
+            'logo' => '1606918123computadora-completa-amd-a4-3ghz-monitor-led-hd-156-video-hdmi.jpg'
         ]);
     }
 }

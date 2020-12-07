@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -25,8 +25,8 @@
                     <td>{{$cliente->id}}</td>
                     <td>{{$cliente->nombre}}</td>
                     <td>{{$cliente->apellido}}</td>
-                    <td>{{$cliente->dni}}</td>
-                    <td>{{$cliente->telefono}}</td>
+                    <td class="text-right">{{$cliente->dni}}</td>
+                    <td class="text-right">{{$cliente->telefono}}</td>
                     <td>{{$cliente->email}}</td>
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>

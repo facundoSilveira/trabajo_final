@@ -58,17 +58,17 @@
 
           <input type="hidden" id="filtros" value="Ningún filtro aplicado.">
 
-        <table class="table table-borderless table-dark" id="tabla">
+        <table class="table table-bordered table-dark" id="tabla">
             <thead>
             <tr>
 
 
                 <th scope="col">Tipo servicio</th>
                 <th scope="col">Priridad</th>
-                <th scope="col">fecha recibida</th>
+                <th scope="col">Fecha Recibida</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Tecnico</th>
-                <th scope="col">contraseña</th>
+                <th scope="col">Contraseña</th>
                 <th scope="col">Opciones</th>
 
             </tr>
@@ -76,9 +76,13 @@
             <tbody>
                 @foreach ($servicios as $servicio)
                 <tr>
-                    <td>{{$servicio->tipo_servicio->nombre}}</td>
+                    <td>
+                        @foreach ($servicio->tipos as $tipo )
+                            {{$tipo->tipo->nombre}}
+                        @endforeach
+                    </td>
                     <td>{{$servicio->prioridad->nombre}}</td>
-                    <td>{{ \Carbon\Carbon::create($servicio->fechaRecibida)->format('d/m/Y')}}</td>
+                    <td class="text-right">{{ \Carbon\Carbon::create($servicio->fechaRecibida)->format('d/m/Y')}}</td>
                     <td>{{$servicio->getEstado()}}</td>
                     <td>
                         @if($servicio->tecnico == null)
@@ -269,7 +273,7 @@
 
                   //doc.content[0].table.widths = colCount;
 
-                  //Es equivalente a: 
+                  //Es equivalente a:
                   doc.content[0].table.widths = [120, 60, 80, 70, 110];
 
                   //Obtenemos la cantidad de filas y le damos la orientacion (izquierda, centro, derecha) que queremos
@@ -550,7 +554,7 @@ $('.dt-buttons').css({
         }
         else if (filtro1 == "" && filtro2 != "" && filtro3 != "" && filtro4 != "") {
           console.log('filtro 5');
-          var filtros = "F. hasta: "+filtro2Titulo+", Tecnicos: "+String(filtro3)+" y Estados: "+String(filtro4); 
+          var filtros = "F. hasta: "+filtro2Titulo+", Tecnicos: "+String(filtro3)+" y Estados: "+String(filtro4);
           var filtradoTabla = function FuncionFiltrado(settings, data, dataIndex) {
             var datearray1 = data[2].split("/");
             var newdate1 =   datearray1[2] + datearray1[1] + datearray1[0];
@@ -764,7 +768,7 @@ $('.dt-buttons').css({
 
           table.draw()
 
-          
+
 
         }
         $('#filtros').val(String(filtros));

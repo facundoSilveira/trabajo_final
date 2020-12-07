@@ -22,8 +22,6 @@ class CreateServiciosTable extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('prioridad_id');
             $table->foreign('prioridad_id')->references('id')->on('prioridads');
-            $table->unsignedBigInteger('tipo_servicio_id');
-            $table->foreign('tipo_servicio_id')->references('id')->on('tipo_servicios');
             $table->unsignedBigInteger('equipo_id');
             $table->foreign('equipo_id')->references('id')->on('equipos');
             $table->unsignedBigInteger('tecnico_id')->nullable();

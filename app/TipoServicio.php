@@ -9,4 +9,10 @@ class TipoServicio extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
+    public function servicios(){
+        return $this->hasMany(ServicioTipoServicio::class);
+    }
+
+
 }
+

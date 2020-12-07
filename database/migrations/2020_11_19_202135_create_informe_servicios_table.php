@@ -17,8 +17,6 @@ class CreateInformeServiciosTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->double('presupuesto');
-            $table->date('fechaInicio');
-            $table->date('fechaFin');
             $table->string('problemaTecnico')->nullable();
             $table->string('descripcion')->nullable();
             $table->boolean('confirmacion')->nullable();

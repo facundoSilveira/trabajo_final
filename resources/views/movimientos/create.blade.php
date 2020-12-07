@@ -21,83 +21,85 @@
            </ul>
         </div>
         @endif
-        <div class="row">
-            <div class="col-3">
-                <div class="form-group ">
-                    <label for="proveedores" class=" col-form-label text-md-right">Proveeores</label>
-                    <label for="agregar_proveedor">
-                        <a role="button" type="button" href="{{route('proveedores.create')}}" title="Nuevo Proveedor"><i
-                                class="fas fa-plus-circle fa-md"></i></a>
-                    </label>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-3">
+                    <div class="form-group ">
+                        <label for="proveedores" class=" col-form-label text-md-right">Proveeores</label>
+                        <label for="agregar_proveedor">
+                            <a role="button" type="button" href="{{route('proveedores.create')}}" title="Nuevo Proveedor"><i
+                                    class="fas fa-plus-circle fa-md"></i></a>
+                        </label>
 
-                    <select class="form-control" name="proveedor_id"  id="proveedor" required>
-                        @foreach($proveedors as $proveedor)
-                        <option value="{{$proveedor->id}}" @if(old('proveedor_id')==$proveedor->id) selected
-                            @endif>{{$proveedor->nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-
-            <div class="col-2">
-                <div class="form-group ">
-                    <label for="tipoComprobante" class=" col-form-label text-md-right">Tipo Comprobante</label>
-                    <label for="agregar_tipoComprobante">
-                        <a role="button" type="button" href="{{route('tipo_comprobantes.create')}}" title="Nuevo Tipo comprobante"><i
-                                class="fas fa-plus-circle fa-md"></i></a>
-                    </label>
-
-                    <select class="form-control" name="tipo_comprobante_id"  id="tipo_comprobante" required>
-                        @foreach($tipo_comprobantes as $tipo_comprobante)
-                        <option value="{{$tipo_comprobante->id}}" @if(old('tipo_comprobante_id')==$tipo_comprobante->id) selected
-                            @endif>{{$tipo_comprobante->nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-
-            <div class="col-2">
-                <div class="form-group ">
-                    <label for="tipo_movimiento" class=" col-form-label text-md-right">tipo movimiento</label>
-                    <label for="agregar_tipo_movimiento">
-                        <a role="button" type="button" href="{{route('tipo_movimientos.create')}}" title="tipo movimiento"><i
-                                class="fas fa-plus-circle fa-md"></i></a>
-                    </label>
-
-                    <select class="form-control" name="tipo_movimiento_id"  id="tipo_movimiento" required>
-                        @foreach($tipo_movimientos as $tipo_movimiento)
-                        <option value="{{$tipo_movimiento->id}}" @if(old('tipo_movimiento_id')==$tipo_movimiento->id) selected
-                            @endif>{{$tipo_movimiento->nombre}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="col-2">
-                    <div class="form-group">
-                        <label for="">Fecha</label>
-                        <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"class="form-control"
-                        placeholder="Ingrese el fecha ">
+                        <select class="form-control" name="proveedor_id"  id="proveedor" required>
+                            @foreach($proveedors as $proveedor)
+                            <option value="{{$proveedor->id}}" @if(old('proveedor_id')==$proveedor->id) selected
+                                @endif>{{$proveedor->nombre}}</option>
+                            @endforeach
+                        </select>
                     </div>
-            </div>
-
-
-
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Fecha Comprobante</label>
-                    <input type="date" name="fechaComprobante" id="fechaComprobante" value="{{ old('fechaComprobante') }}"class="form-control"
-                    placeholder="Ingrese el fecha del comprobante">
                 </div>
-            </div>
+
+
+                <div class="col-2">
+                    <div class="form-group ">
+                        <label for="tipoComprobante" class=" col-form-label text-md-right">Tipo Comprobante</label>
+                        <label for="agregar_tipoComprobante">
+                            <a role="button" type="button" href="{{route('tipo_comprobantes.create')}}" title="Nuevo Tipo comprobante"><i
+                                    class="fas fa-plus-circle fa-md"></i></a>
+                        </label>
+
+                        <select class="form-control" name="tipo_comprobante_id"  id="tipo_comprobante" required>
+                            @foreach($tipo_comprobantes as $tipo_comprobante)
+                            <option value="{{$tipo_comprobante->id}}" @if(old('tipo_comprobante_id')==$tipo_comprobante->id) selected
+                                @endif>{{$tipo_comprobante->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <div class="form-group ">
+                        <label for="tipo_movimiento" class=" col-form-label text-md-right">tipo movimiento</label>
+                        <label for="agregar_tipo_movimiento">
+                            <a role="button" type="button" href="{{route('tipo_movimientos.create')}}" title="tipo movimiento"><i
+                                    class="fas fa-plus-circle fa-md"></i></a>
+                        </label>
+
+                        <select class="form-control" name="tipo_movimiento_id"  id="tipo_movimiento" required>
+                            @foreach($tipo_movimientos as $tipo_movimiento)
+                            <option value="{{$tipo_movimiento->id}}" @if(old('tipo_movimiento_id')==$tipo_movimiento->id) selected
+                                @endif>{{$tipo_movimiento->nombre}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-2">
+                        <div class="form-group">
+                            <label for="">Fecha</label>
+                            <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"class="form-control"
+                            placeholder="Ingrese el fecha ">
+                        </div>
+                </div>
 
 
 
-            <div class="col-2">
-                <div class="form-group">
-                    <label for="">Nro Comprobante</label>
-                    <input type="text" name="numeroComprobante" id="numeroComprobante" value="{{ old('nroComprobante') }}" class="form-control"
-                    placeholder="Ingrese el numero del comprobante">
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="">Fecha Comprobante</label>
+                        <input type="date" name="fechaComprobante" id="fechaComprobante" value="{{ old('fechaComprobante') }}"class="form-control"
+                        placeholder="Ingrese el fecha del comprobante">
+                    </div>
+                </div>
+
+
+
+                <div class="col-2">
+                    <div class="form-group">
+                        <label for="">Nro Comprobante</label>
+                        <input type="text" name="numeroComprobante" id="numeroComprobante" value="{{ old('nroComprobante') }}" class="form-control"
+                        placeholder="Ingrese el numero del comprobante">
+                    </div>
                 </div>
             </div>
         </div>
@@ -132,14 +134,14 @@
             <div class="col-2">
                 <div class="form-group">
                     <label for="">Cantidad</label>
-                    <input type="text" name="cant" id="cantidad_id" value="{{ old('cantidad') }}"class="form-control"
+                    <input type="text"  id="cantidad_id" value="" class="form-control"
                     placeholder="Ingrese la cantidad de recursos">
                 </div>
             </div>
             <div class="col-2">
                 <div class="form-group">
                     <label for="">Precio</label>
-                    <input type="text" name="preciso" id="precio_id" value="{{ old('precio') }}"class="form-control"
+                    <input type="text" name="precio" id="precio_id" value=""class="form-control"
                     placeholder="Ingrese la precio del recursos">
                 </div>
             </div>

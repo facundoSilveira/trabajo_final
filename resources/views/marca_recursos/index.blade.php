@@ -7,7 +7,7 @@
     </div>
 
     <div class="card-body">
-        <table class="table table-borderless table-dark dataTable">
+        <table class="table table-bordered table-dark dataTable">
             <thead>
             <tr>
                 <th scope="col">#</th>
@@ -18,7 +18,7 @@
             <tbody>
                 @foreach ($marca_recursos as $marca_recurso)
                 <tr>
-                    <td>{{$marca_recurso->id}}</td>
+                    <td class="text-right">{{$marca_recurso->id}}</td>
                     <td>{{$marca_recurso->nombre}}</td>
 
                     <td class="text-right">
