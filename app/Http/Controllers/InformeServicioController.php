@@ -6,6 +6,8 @@ use App\InformeServicio;
 use App\InformeServicioRecurso;
 use App\Recurso;
 use App\Servicio;
+use App\ServicioTipoServicio;
+use App\TipoServicio;
 use Illuminate\Http\Request;
 use Exception;
 use stdClass;
@@ -51,48 +53,42 @@ class InformeServicioController extends Controller
             // return $request;
             //validaciones
             $data = request()->validate([
-                'presupuesto' => 'required',
-                'fechaInicio' => 'required',
-                'fechaFin' => 'required',
-                'problemaTecnico' => 'required',
+
+
                 'descripcion' => 'required',
                 'cantidad.*' => 'required',
-                'recurso.*' => 'required'
+                'recurso.*' => 'required',
+                'tipo_servicio_id.*' => 'required'
             ]) ;
             //creo un nuevo informe y loguardo en la B.D
-
-
+            $data = new stdClass();
+            $data = request();
             $sinStock = collect() ;
+            $recursosUtilizados = collect() ;
+            $hayStock = true ;
             for ($i=0; $i < sizeof($request->recurso); $i++) {
                 $recursoOb = Recurso::find($request->recurso[$i]) ;
                 if($recursoOb->obtenerStock() < $request->cantidad[$i]){
                     $sinStock->add($recursoOb) ;
+                    $hayStock = false ;
                 }
+                $recursosUtilizados->add($recursoOb) ;
             }
-
 
 
             $informe = new InformeServicio();
 
             $informe->presupuesto = $request->presupuesto;
-            $informe->fechaInicio = $request->fechaInicio ;
-            $informe->fechaFin = $request->fechaFin ;
             $informe->problemaTecnico = $request->problemaTecnico;
             $informe->descripcion = $request->descripcion;
             $informe->servicio_id = $request->servicio_id;
             $servicio = Servicio::find($request->servicio_id);
             $informe->tecnico_id = $servicio->tecnico->id;
-
             $informe->save();
-           // return $servicio->id;
-
-
-
-        //return $request;
+           // return $request;
 
             for ( $i = 0; $i < sizeof( $request->cantidad ); $i++){
-                // $recurso = Recurso::find($request->recurso[$i]);
-                // return $recurso->precio;
+              //  return $request;
                 $informeRecurso = new InformeServicioRecurso();
                 $informeRecurso->cantidad = $request->cantidad[$i] ;
                 $informeRecurso->recurso_id = $request->recurso[$i] ;
@@ -104,50 +100,25 @@ class InformeServicioController extends Controller
                 }else{
                     $informeRecurso->reserva = true;
                 }
-
-               // $recurso = Recurso::find($request->recurso[$i]);
-               // return $recurso;
-               // $recurso->stock = $recurso->stock + $request->cantidad[$i];
-               //return $request->recurso[$i];
-               $informeRecurso->save();
-
-
-
-
-            //return redirect()->back();
             }
+            foreach ($servicio->tipos as $tipo) {
+                    for ( $i = 0; $i < sizeof( $request->tipo_servicio_id ); $i++){
+                        if ($tipo->tipo->id != $request->tipo_servicio_id[$i]){
+                            $tipoServicio = new ServicioTipoServicio() ;
+                            $tipoServicio->servicio_id = $servicio->id ;
+                            $tipoServicio->tipo_servicio_id = $request->tipo_servicio_id[$i] ;
+                            $tipoServicio->save();
+                    }
 
 
-        /*$input = $request->all();
-        $proyectoAmbiente = $this->proyectoAmbienteRepository->create($input);
-        $proyectoAmbiente->Proyecto_id = $proyecto->id;
-        $proyectoAmbiente->save();*/
+
+                }
+            }
+            $informeRecurso->save();
+            $servicio->equipo->cliente->enviarMail($informe, $hayStock );
 
 
 
-        //return ($proyecto);
-
-          //  return $request->cantidad;
-
-           // $incidencia->tipo_incidencia_id = $request->tipo_incidencia_id;
-            // $informe->save();
-            // $data = [
-            //     1 => ['recurso_id' => $request->input('recurso')],
-            //     2 => ['cantidad' => $request->input('cantidad')]
-            // ];
-            // $informe->informeRecurso()->sync($data);
-            //return ["recurso_id" => $request->recurso, "cantidad" => $request->cantidad, "informe_servicio_id" => $informe->id];
-            //implementar en la vista servicio
-            //$informe->accesorios()->sync($request->accesorios_id);
-            //crear qr
-
-             $data = new stdClass();
-             $data = request();
-            // $data->sinStock = $sinStock;
-            // $data->recursos = $request->recurso;
-            // $data->problema = $request->problemaTecnico;
-            //return $data;
-            $servicio->equipo->cliente->enviarMail($data);
            // return $servicio->informe->presupuesto;
             return redirect()->route('servicios.atender_servicio', $servicio);
             //return $servicio->atender_servicio($servicio->id, $request);
@@ -205,7 +176,8 @@ class InformeServicioController extends Controller
 
     public function getServicio($id){
         $recursos = Recurso::all();
-
-        return view('informes.create', compact('recursos', 'id'));
+        $tipo_servicios = TipoServicio::all() ;
+        $servicio = Servicio::find($id) ;
+        return view('informes.create', compact('recursos', 'id' , 'tipo_servicios', 'servicio'));
     }
 }
