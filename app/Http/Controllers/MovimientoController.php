@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Movimiento;
+
 use Illuminate\Http\Request;
 use App\CabeceraMovimiento;
 use App\Proveedor;
 use App\TipoComprobante;
 use App\TipoMovimiento;
 use App\Recurso;
+use App\TipoRecurso;
+use App\TipoRecursoProveedor;
 use Exception;
 
 class MovimientoController extends Controller
@@ -74,7 +77,7 @@ class MovimientoController extends Controller
         $cabeceraMovimiento->proveedor_id = $request->proveedor_id ;
         $cabeceraMovimiento->save();
        // return $request;
-    try{
+    // try{
         for ( $i = 0; $i < sizeof( $request->cantidad ); $i++){
             $movimiento = new Movimiento();
             $movimiento->cantidad = $request->cantidad[$i] ;
@@ -89,6 +92,7 @@ class MovimientoController extends Controller
             $movimiento->save();
            // return $movimiento;
             $recurso = Recurso::find($request->recurso[$i]) ;
+            $tipo = $recurso->tipo_recurso->id;
             //return $recurso;
             $recurso->stock = $recurso->stock + $request->cantidad[$i];
             $recurso->precio =  $request->precio[$i] ;
@@ -96,12 +100,18 @@ class MovimientoController extends Controller
 
             $recurso->update();
 
+
+            $compradoa = new TipoRecursoProveedor();
+            $compradoa->tipo_recurso_id =$tipo;
+            $compradoa->proveedor_id = $request->proveedor_id;
+            $compradoa->save();
+
         }
         return redirect(route('movimientos.index'))->with('success','movimiento registrado con exito!');
 
-    }catch(Exception $e){
-        return redirect(route('movimientos.create'))->with('error','Cargue los datos correctamente!');
-    }
+    // }catch(Exception $e){
+    //     return redirect(route('movimientos.create'))->with('error','Cargue los datos correctamente!');
+    // }
 
 
 
@@ -117,7 +127,8 @@ class MovimientoController extends Controller
     public function show(Movimiento $movimiento)
     {
         // $movimiento = movimiento::find($id);
-        return view('movimientos.show', compact('movimiento'));
+        $recursos = Recurso::all();
+        return view('movimientos.show', compact('movimiento', 'recursos'));
     }
 
     /**

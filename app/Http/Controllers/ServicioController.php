@@ -15,11 +15,16 @@ use App\RecursoUtilizado;
 use App\Tecnico;
 use App\Configuracion;
 use App\ServicioTipoServicio;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
+
 
 class ServicioController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -155,14 +160,49 @@ class ServicioController extends Controller
 
     public function mis_servicios(Servicio $servicio)
     {
-        $servicios = Servicio::all();
+
+        // $id = Auth::id();
+        $user = Auth::user();
+
+        // $user = User::find(['id'=>$id]);
+        // return $user->roles();
+        if ($user->roles->first()->slug == 'ADMIN'){
+            $servicios = Servicio::all();
+        }else{
+            $servicios = Servicio::where('tecnico_id',$user->tecnico->id)->orderBy('fechaRecibida', 'asc')->get();
+            for ($i = 1; $i < count($servicios); $i++) {
+                for ($j = 0; $j < count($servicios) - $i; $j++) {
+                    if ($servicios[$j]->prioridad->id > $servicios[$j + 1]->prioridad->id) {
+                        $k = $servicios[$j + 1];
+                        $servicios[$j + 1] = $servicios[$j];
+                        $servicios[$j] = $k;
+                    }
+                }
+            }
+        }
+        $prioridades = Prioridad::all();
+        $estados = Estado::all();
+        $configuracion = Configuracion::first();
+
+      //  return $prioridades;
+        return view('mis_servicios.index', compact('servicios', 'prioridades', 'estados', 'configuracion'));
+    }
+    public function servicios_pendientes(Servicio $servicio)
+    {
+        // $id = Auth::id();
+      //  $user = Auth::user();
+
+        // $user = User::find(['id'=>$id]);
+        // return $user->roles();
+
+        $servicios = Servicio::where('tecnico_id',null)->get();
+       // return $servicios;
         $prioridades = Prioridad::all();
         $estados = Estado::all();
         $configuracion = Configuracion::first();
       //  return $prioridades;
-        return view('mis_servicios.index', compact('servicios', 'prioridades', 'estados', 'configuracion'));
+        return view('mis_servicios.sin_asignar', compact('servicios', 'prioridades', 'estados', 'configuracion'));
     }
-
     public function finalizar_servicio(Servicio $servicio)
     {
         for ($i=0; $i < sizeof ($servicio->informe->informeRecurso) ; $i++) {
@@ -234,6 +274,11 @@ class ServicioController extends Controller
     public function enviar_informe(InformeServicio $informe)
     {
         return view('respuesta.prueba', compact('informe'));
+    }
+
+    public function enviar_informe2(InformeServicio $informe)
+    {
+        return view('respuesta.prueba2', compact('informe'));
     }
 
     // public function ver_respuesta(InformeServicio $informe, Servicio $servicio)
