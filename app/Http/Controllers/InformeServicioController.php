@@ -8,6 +8,9 @@ use App\Recurso;
 use App\Servicio;
 use App\ServicioTipoServicio;
 use App\TipoServicio;
+use App\Pedido;
+use App\Detalle;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
 use stdClass;
@@ -69,12 +72,35 @@ class InformeServicioController extends Controller
             for ($i=0; $i < sizeof($request->recurso); $i++) {
                 $recursoOb = Recurso::find($request->recurso[$i]) ;
                 if($recursoOb->obtenerStock() < $request->cantidad[$i]){
-                    $sinStock->add($recursoOb) ;
                     $hayStock = false ;
+                    if (!$sinStock->contains($recursoOb)){
+                        $sinStock->add($recursoOb) ;
+                    }
+
+
                 }
                 $recursosUtilizados->add($recursoOb) ;
             }
+            if ($hayStock == false){
+                $pedido= new Pedido();
+                $pedido->fecha = Carbon::now();
+                $pedido->save();
+                for ( $i = 0; $i < sizeof( $sinStock ); $i++){
+                    $detalle = New Detalle();
+                    $detalle->cantidad = $sinStock[$i]->stockMinimo;
+                    $detalle->recurso_id = $sinStock[$i]->id;
+                    $detalle->pedido_id =  $pedido->id;
 
+                    $detalle->save();
+                   // return $movimiento;
+                  ;
+                  //  print 'recurso->stock';
+
+
+
+                }
+
+            }
 
             $informe = new InformeServicio();
 
@@ -119,11 +145,11 @@ class InformeServicioController extends Controller
 
 
 
-           // return $servicio->informe->presupuesto;
+           if ($hayStock == false){
+                return redirect()->route('servicios.atender_servicio', $servicio)->with('success','no contamos con recursos para este servicio, se creo un pedido a confirmar!');
+           }
             return redirect()->route('servicios.atender_servicio', $servicio);
-            //return $servicio->atender_servicio($servicio->id, $request);
-           // return redirect(route('servicios.atender_servicio', ['servicio' => $servicio->id]))->with('success','informe enviado con exito!');
-           // return $sinStock;
+
     }
 
     /**
