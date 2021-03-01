@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Equipo;
+use App\Servicio;
 use Illuminate\Http\Request;
 
 class AuditoriaController extends Controller
@@ -11,7 +12,9 @@ class AuditoriaController extends Controller
     {
 
         $equipos = Equipo::withTrashed()->get();
+        $servicios = Servicio::withTrashed()->get();
         $auditoriasEquipo = collect();
+        $auditoriasServicio = collect();
 
         foreach ($equipos as $equipo) {
             if (!$equipo->audits->isEmpty()) {
@@ -20,9 +23,16 @@ class AuditoriaController extends Controller
                 }
             }
         }
+        foreach ($servicios as $servicio) {
+            if (!$servicio->audits->isEmpty()) {
+                foreach($servicio->audits as $a){
+                    $auditoriasServicio->add($a);
+                }
+            }
+        }
 
 
-        return view('auditoria.index', compact('auditoriasEquipo'));
+        return view('auditoria.index', compact('auditoriasEquipo', 'auditoriasServicio'));
     }
 
 
@@ -32,6 +42,18 @@ class AuditoriaController extends Controller
         foreach($equipos as $equipo){
             if($equipo->id == $idEquipo){
                 $auditoria = $equipo->audits()->find($id);
+                // dd($auditoria->getModified());
+                // dd(empty($auditoria->old_values)) ;
+                return view('auditoria.show' , compact('auditoria' , 'tabla')) ;
+            }
+        }
+    }
+    public function showServicios($idServicio , $id){
+        $tabla = 'SERVICIO';
+        $servicios = Servicio::withTrashed()->get() ;
+        foreach($servicios as $servicio){
+            if($servicio->id == $idServicio){
+                $auditoria = $servicio->audits()->find($id);
                 // dd($auditoria->getModified());
                 // dd(empty($auditoria->old_values)) ;
                 return view('auditoria.show' , compact('auditoria' , 'tabla')) ;
