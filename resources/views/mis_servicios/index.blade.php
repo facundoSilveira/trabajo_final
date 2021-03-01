@@ -3,7 +3,7 @@
 @section('content')
 <div class="card">
     <div class="card-header">Servicio
-        <a class="btn btn-primary btn-sm float-right text-white" href="{{route('servicios.create')}}">Nuevo</a>
+        {{-- <a class="btn btn-primary btn-sm float-right text-white" href="{{route('servicios.create')}}">Nuevo</a> --}}
 
     </div>
 
@@ -32,7 +32,7 @@
                     <select class="select2bs4 select2-hidden-accessible" multiple=""
                       data-placeholder="Seleccione prioridad" style="width: 100%;" aria-hidden="true" id="prioridades">
                       @foreach ($prioridades as $prioridad)
-                      <option value="{{$prioridad->nombre}} ">{{ $prioridad->nombre}}  </option>
+                      <option value="{{$prioridad->nombre}}">{{$prioridad->nombre}}</option>
                       @endforeach
                     </select>
                   </div>
@@ -83,7 +83,7 @@
                     <td class="text-right">{{ \Carbon\Carbon::create($servicio->fechaRecibida)->format('d/m/Y')}}</td>
                     <td>
                         @foreach ($servicio->tipos as $tipo )
-                            {{$tipo->tipo->nombre}}
+                            <span class="badge bg-light" >{{$tipo->tipo->nombre}}</span>
                         @endforeach
                     </td>
                     <td>{{$servicio->equipo->cliente->nombre}} {{$servicio->equipo->cliente->apellido}}</td>
@@ -92,7 +92,7 @@
 
                     <td class="text-right">
                         @if ($servicio->getEstado() == "En Espera")
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('show_servicio_espera', $servicio->informe) }}">show </a>
+                        <a class="btn btn-outline-light btn-sm" href="{{ route('show_servicio_espera', $servicio->informe) }}">Confirmar/Cancelar </a>
 
                         @endif
                         <a class="btn btn-outline-light btn-sm" href="{{ route('ver_servicio', $servicio->id) }}">Ver </a>
@@ -169,7 +169,7 @@
 
                   //El titulo lo saco de un input oculto para poder usar esta misma configuracion para reportes distintos, entonces cambia el titulo segun el reporte.
                   var titulo = 'Listado de servicios ';
-                  var autor_reporte = 'yo';
+                  var autor_reporte = '{{Auth::user()->name}}';
                   filtros = String($('#filtros').val());
 
                   var titulo_header = "Reportes " + '{{$configuracion->nombre}}'

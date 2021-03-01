@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Tecnico;
 use App\Direccion;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+
+use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
 
 class TecnicoController extends Controller
 {
@@ -46,6 +50,7 @@ class TecnicoController extends Controller
             'dni' => 'required|unique:tecnicos',
             'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:5',
             'email' => 'required|email|unique:tecnicos',
+            'password' => 'required',
         ]) ;
         //creo un nuevo tecnico y loguardo en la B.D
         $direccion = new Direccion();
@@ -64,6 +69,16 @@ class TecnicoController extends Controller
         $tecnico->direccion_id = $direccion->id;
 
         $tecnico->save();
+
+
+        $user = User::create([
+            'name' => $tecnico->nombre,
+            'email' => $tecnico->email,
+            'password' => Hash::make($request->password) ,
+        ]);
+        $user->assignRoles('Tecnico');
+
+        $tecnico->update(['user_id'=>$user->id]);
         return redirect(route('tecnicos.index'))->with('success','tecnico guardado con exito!');
     }
 

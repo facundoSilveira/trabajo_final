@@ -25,7 +25,7 @@
                     <td>{{$movimiento->recurso->tipo_recurso->nombre}} {{$movimiento->recurso->tamaño}} {{$movimiento->recurso->medida->nombre}}</td>
                     <td class="text-right">{{$movimiento->cantidad}}</td>
                     <td class="text-right">{{$movimiento->precio}}</td>
-                    <td class="text-right">{{$movimiento->cabeceraMovimiento->fecha}}</td>
+                    <td class="text-right">{{ \Carbon\Carbon::create($movimiento->cabeceraMovimiento->fecha)->format('d/m/Y')}}</td>
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('movimientos.edit', $movimiento->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$movimiento->id}}>Borrar</a>

@@ -1,3 +1,4 @@
+
 @extends('admin-lte.index')
 
 @section('content')
@@ -20,10 +21,11 @@
                             <strong><i class="fal fa-file-alt mr-1"></i>Detalles del informe: <br>
                                 <p>
                                     Presupuesto: <i class="text-muted"> {{$informe->presupuesto}} </i><br>
-                                    Fecha de inicio: {{$informe->fechaInicio}} <br>
-                                    Fecha fin: {{$informe->fechaFin}} <br>
-                                    ProblemaTecnico: {{$informe->ProblemaTecnico}} <br>
-                                    Descripcio: {{$informe->escripcion}}<br>
+                                    @foreach ($informe->servicio->tipos as $tipo)
+                                    ProblemaTecnico: {{$tipo->tipo->nombre}} <br>
+                                    @endforeach
+
+                                    Descripcion: {{$informe->descripcion}}<br>
                                 </p>
                             </strong>
                          </div>

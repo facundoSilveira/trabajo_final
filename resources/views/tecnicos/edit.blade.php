@@ -42,6 +42,11 @@
             <label for="">Email</label>
             <input type="text" name="email" value="{{$tecnico->email}}"class="form-control">
         </div>
+        <div class="form-group">
+            <label for="">Contraseña</label>
+            <input type="password" name="password" id="password" value="**********" class="form-control"
+            placeholder="Ingrese la contraseña del usuario" readonly>
+        </div>
 
 
         <button type="submit" class="btn btn-primary">Editar</button>

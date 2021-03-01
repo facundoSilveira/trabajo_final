@@ -24,6 +24,8 @@ class CreateTecnicosTable extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('direccion_id');
             $table->foreign('direccion_id')->references('id')->on('direccions');
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 

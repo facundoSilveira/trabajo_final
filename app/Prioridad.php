@@ -9,4 +9,7 @@ class Prioridad extends Model
 {
     use SoftDeletes;
     protected $guarded = [];
+    public function recursos(){
+        return $this->hasMany(Recurso::class);
+    }
 }

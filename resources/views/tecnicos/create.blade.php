@@ -46,6 +46,11 @@
         <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control"
         placeholder="Ingrese el email del tecnico">
     </div>
+    <div class="form-group">
+        <label for="">Contraseña</label>
+        <input type="password" name="password" id="password" value="{{ old('password') }}" class="form-control"
+        placeholder="Ingrese la contraseña del usuario" required>
+    </div>
     <div class="card card-primary card-outline">
         <div class="card-header">
             <h5>

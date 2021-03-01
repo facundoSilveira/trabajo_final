@@ -207,7 +207,7 @@
 
                   //El titulo lo saco de un input oculto para poder usar esta misma configuracion para reportes distintos, entonces cambia el titulo segun el reporte.
                   var titulo = 'Listado de servicios ';
-                  var autor_reporte = 'yo';
+                  var autor_reporte = '{{Auth::user()->name}}';
                   filtros = String($('#filtros').val());
 
                   var titulo_header = "Reportes " + '{{$configuracion->nombre}}'

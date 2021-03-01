@@ -35,6 +35,7 @@ Route::resource('proveedores', 'ProveedorController');// todas las rutas para el
 Route::resource('tipo_movimientos', 'TipoMovimientoController');// todas las rutas para el CRUD de Tipo Movi
 Route::resource('tipo_comprobantes', 'TipoComprobanteController');// todas las rutas para el CRUD de Tipo Comp
 Route::resource('movimientos', 'MovimientoController');// todas las rutas para el CRUD de Movi
+Route::resource('pedidos', 'PedidoController');// todas las rutas para el CRUD de Movi
 Route::resource('tipo_servicios', 'TipoServicioController');// todas las rutas para el CRUD de Tipo de servicio
 Route::resource('prioridades', 'PrioridadController');// todas las rutas para el CRUD de prioridades
 Route::resource('estados', 'EstadoController');// todas las rutas para el CRUD de estados
@@ -48,10 +49,12 @@ Route::post('marcas_ajax', 'MarcaController@storeAjax');// para el modal
 Route::get('mis_servicios', 'ServicioController@mis_servicios')->name('mis_servicios.index');
 Route::get('mis_servicios/confirmar/{valor}-{informe}', 'ServicioController@atender_respuesta')->name('mis_servicios.confirmar');
 Route::get('mis_servicios/show_servicio_espera/{informe}', 'ServicioController@enviar_informe')->name('show_servicio_espera');
+Route::get('mis_servicios/show_servicio_espera2/{informe}', 'ServicioController@enviar_informe2')->name('show_servicio_espera2');
 Route::get('ver_servicio/{servicio}', 'ServicioController@ver_servicio')->name('ver_servicio');
 Route::get('informes/{id}/getServicio', 'InformeServicioController@getServicio')->name('informes.getServicio');// todas las rutas para el CRUD de Servicio
 Route::get('servicios/{servicio}/entregar_servicio', 'ServicioController@entregar_servicio')->name('servicios.entregar_servicio');// todas las rutas para el CRUD de Servicio
-
+Route::get('servicios_pendientes', 'ServicioController@servicios_pendientes')->name('servicios_pendientes');
+Route::get('estadisticas.index', 'EstadisticaController@index')->name('estadisticas.index');
 
 
 Route::get('configuracion', 'ConfiguracionController@index')->name('configuracion.index');
@@ -61,5 +64,9 @@ Route::get('/equipoPDF', 'PdfController@equipoPDF')->name('equipo.pdf');
 
 Route::get('auditoria', 'AuditoriaController@index')->name('auditoria.index');
 Route::get('auditoria/equipos/{auditoria}-{id}', 'AuditoriaController@showEquipos')->name('auditoria.showEquipos');
+Route::get('auditoria/servicios/{auditoria}-{id}', 'AuditoriaController@showServicios')->name('auditoria.showServicios');
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

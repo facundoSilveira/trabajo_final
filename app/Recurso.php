@@ -38,6 +38,9 @@ class Recurso extends Model
             return $this->hasMany(RecursoUtilizado::class);
         }
 
+        public function detalles(){
+            return $this->hasMany(Detalle::class);
+        }
         public function obtenerStock()
         {
             $stockReal = $this->stock;

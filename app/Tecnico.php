@@ -22,4 +22,7 @@ class Tecnico extends Model
     public function informes(){
         return $this->hasMany(InformeServicio::class);
     }
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

@@ -10,8 +10,12 @@ class TipoRecursoProveedor extends Model
     protected $guarded = [];
     public $table = "tipo_recurso_proveedors";
     //relaciiones
-    public function proveedores()
+    public function proveedor()
     {
-        return $this->hasMany(Proveedor::class);
+        return $this->belongsTo(Proveedor::class);
+    }
+    public function tipo_recurso()
+    {
+        return $this->belongsTo(TipoRecurso::class);
     }
 }

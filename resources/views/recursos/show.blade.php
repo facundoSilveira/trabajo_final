@@ -37,7 +37,7 @@
                         <h4 class="alert-heading"><h4><i class="fas fa-exclamation-triangle"></i><b> Stock en riesgo</b></h4></h4>
                         <p>Ten en cuenta que tu stock esta por debajo del mínimo establecido.</p>
                         <hr>
-                        <p class="mb-0"><a href="{{route('movimientos.create')}}">Solicitar mas</a></p>
+                        <p class="mb-0"><a href="{{route('pedidos.create')}}">Solicitar mas</a></p>
                       </div>
                     @endif
 

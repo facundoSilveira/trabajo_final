@@ -9,5 +9,16 @@
         <a href="" class="nav-link">Home</a>
       </li>
     </ul>
+    <ul class="navbar-nav ml-auto">
+
+        <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">
+            <i class="fa fa-sign-out nav-icon"></i>Salir
+        </a>
+
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+            @csrf
+        </form>
+    </ul>
   </nav>
   <!-- /.navbar -->

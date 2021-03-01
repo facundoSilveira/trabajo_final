@@ -8,7 +8,10 @@
 <body>
 
         <body>
-            <p>Hola! Ya revisamos su equipo, el problema que de su equipo es {{ $informe->problemaTecnico}}, el costo del total del servicio es ${{$informe->presupuesto}} tiempo estimado es {{$informe->servicio->duracionEstimada($informe->servicio->tipos)}}.</p>
+            <p>Hola! Ya revisamos su equipo, le declaramos la descripcion de lo que realizaremos en su equipo,{{ $informe->descripcion}}, el costo del total del servicio es ${{$informe->presupuesto}} tiempo estimado es de 3 dias. </p>
+
+                     {{-- {{$informe->servicio->duracionEstimada($informe->servicio->tipos)}} dias.</p> --}}
+
             <p>A continuacion se detallan el/los servicios a realizar:</p>
             <ul>
                 @foreach ($informe->servicio->tipos as $tipo)
@@ -47,7 +50,7 @@
             @endif
 
             <p>Para confirmar o rechazar por favor ingrese al siguiente enlace dando click sobre el mismo!</p>
-            http://trabajo_final.test/mis_servicios/show_servicio_espera/{{$informe->servicio->id}}
+            http://trabajo_final.test/mis_servicios/show_servicio_espera2/{{$informe->servicio->id}}
 
 
 </body>

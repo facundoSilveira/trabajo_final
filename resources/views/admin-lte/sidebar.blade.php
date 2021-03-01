@@ -27,6 +27,8 @@
                 <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
+
+
                 <li class="nav-item has-treeview ">
                     <a href="#" class="nav-link">
                         <i class="nav-item fas fa-users"></i>
@@ -47,10 +49,11 @@
                         </li>
                     </ul>
                 </li>
+                @can('PERM.ADMIN')
                 <li class="nav-item has-treeview {{ (request()->routeIs('tecnicos.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link"
                         style="{{ (request()->routeIs('tecnicos.*')) ? 'background-color: #3c8dbc; color: white;' : '' }}">
-                        <i class="nav-item fas fa-users"></i>
+                        <i class="nav-item fas fa-address-card"></i>
                         <p>
                             Tecnicos
                             <i class="right fas fa-angle-left"></i>
@@ -66,18 +69,19 @@
                         </li>
                     </ul>
                 </li>
-
+                @endcan
 
                 <li class="nav-item has-treeview {{ (request()->routeIs('equipos.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link"
                         style="{{ (request()->routeIs('equipos.*')) ? 'background-color: #3c8dbc; color: white;' : '' }}">
-                        <i class="nav-item fas fa-dolly"></i>
+                        <i class="nav-item fas fa-laptop"></i>
                         <p>
                             Equipos
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+
                         <li class="nav-item">
                             <a href="{{route('equipos.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('equipos.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -85,6 +89,8 @@
                                 <p>Ver equipos</p>
                             </a>
                         </li>
+
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('marcas.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('marcas.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -92,6 +98,8 @@
                                 <p>Ver marcas</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('tipo_equipos.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('tipo_equipos.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -99,6 +107,7 @@
                                 <p>Ver Tipo Equipos</p>
                             </a>
                         </li>
+                        @endcan
                     </ul>
                 </li>
                 <li class="nav-item has-treeview {{ (request()->routeIs('recursos.*')) ? 'menu-open active' : '' }}">
@@ -113,53 +122,87 @@
 
 
                 <ul class="nav nav-treeview">
-                <li class="nav-item">
-                    <a href="{{route('recursos.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('recursos.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver recursos</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('proveedores.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('proveedores.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver proveedores</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('marca_recursos.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('marca_recursos.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver marcas</p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('medidas.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('medidas.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver medidas</p>
-                    </a>
-                </li>
 
-                <li class="nav-item">
-                    <a href="{{route('tipo_recursos.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('tipo_recursos.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver tipo de Recursos</p>
-                    </a>
-                </li>                <li class="nav-item">
-                    <a href="{{route('modelos.index')}}" class="nav-link"
-                        style="{{ (request()->routeIs('modelos.index')) ? 'color: #3c8dbc;' : '' }}">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Ver modelos</p>
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a href="{{route('recursos.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('recursos.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver recursos</p>
+                        </a>
+                    </li>
+                    @can('PERM.ADMIN')
+                    <li class="nav-item">
+                        <a href="{{route('proveedores.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('proveedores.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver proveedores</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('PERM.ADMIN')
+                    <li class="nav-item">
+                        <a href="{{route('marca_recursos.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('marca_recursos.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver marcas</p>
+                        </a>
+                    </li>
+                    @endcan
+                    @can('PERM.ADMIN')
+                    <li class="nav-item">
+                        <a href="{{route('medidas.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('medidas.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver medidas</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('PERM.ADMIN')
+                    <li class="nav-item">
+                        <a href="{{route('tipo_recursos.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('tipo_recursos.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver tipo de Recursos</p>
+                        </a>
+                    </li>
+                    @endcan
+
+                    @can('PERM.ADMIN')
+                    <li class="nav-item">
+                        <a href="{{route('modelos.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('modelos.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver modelos</p>
+                        </a>
+                    </li>
+                    @endcan
                 </ul>
                 </li>
+                @can('PERM.ADMIN')
+                <li class="nav-item has-treeview {{ (request()->routeIs('pedidos.*')) ? 'menu-open active' : '' }}">
+                    <a href="#" class="nav-link"
+                        style="{{ (request()->routeIs('pedidos.*')) ? 'background-color: #3c8dbc; color: white;' : '' }}">
+                        <i class="nav-item fas fa-clipboard"></i>
+                        <p>
+                            Pedidos
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
 
 
-
+                     <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{route('pedidos.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('pedidos.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-circle nav-icon"></i>
+                            <p>Ver Pedidos</p>
+                            </a>
+                        </li>
+                     </ul>
+                </li>
+                @endcan
+                @can('PERM.ADMIN')
                  <li class="nav-item has-treeview {{ (request()->routeIs('tipo_movimientos.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link"
                         style="{{ (request()->routeIs('tipo_movimientos.*')) ? 'background-color: #3c8dbc; color: white;' : '' }}">
@@ -196,9 +239,10 @@
 
                      </ul>
                  </li>
-                 <li class="nav-item has-treeview menu-open">
+                 @endcan
+                 <li class="nav-item has-treeview  {{ (request()->routeIs('mis_servicios.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-item fas fa-cogs"></i>
+                        <i class="nav-item fas fa-chalkboard-teacher"></i>
                         <p>
                            Mis Servicios
                             <i class="right fas fa-angle-left"></i>
@@ -213,11 +257,19 @@
                                 <p>Mis Servicios</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{route('servicios_pendientes')}}" class="nav-link"
+                                style="{{ (request()->routeIs('servicios_pendientes')) ? 'color: #3c8dbc;' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Servicios Pendientes</p>
+                            </a>
+                        </li>
                     </ul>
                  </li>
-                 <li class="nav-item has-treeview menu-open">
+                 @can('PERM.ADMIN')
+                 <li class="nav-item has-treeview {{ (request()->routeIs('servicios.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-item fas fa-cogs"></i>
+                        <i class="nav-item fas fa-tools"></i>
                         <p>
                            Servicio
                             <i class="right fas fa-angle-left"></i>
@@ -225,6 +277,7 @@
                     </a>
 
                     <ul class="nav nav-treeview">
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('servicios.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('servicios.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -232,6 +285,8 @@
                                 <p>Ver Servicio</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('tipo_servicios.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('tipo_servicios.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -239,6 +294,8 @@
                                 <p>Ver Tipo de Servicio</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('prioridades.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('prioridades.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -246,6 +303,8 @@
                                 <p>Ver Prioridades</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('estados.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('estados.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -253,6 +312,8 @@
                                 <p>Ver Estados</p>
                             </a>
                         </li>
+                        @endcan
+                        @can('PERM.ADMIN')
                         <li class="nav-item">
                             <a href="{{route('accesorios.index')}}" class="nav-link"
                                 style="{{ (request()->routeIs('accesorios.index')) ? 'color: #3c8dbc;' : '' }}">
@@ -260,9 +321,12 @@
                                 <p>Ver acesorios</p>
                             </a>
                         </li>
+                        @endcan
                      </ul>
                  </li>
-                 <li class="nav-item has-treeview menu-open">
+                 @endcan
+                 @can('PERM.ADMIN')
+                 <li class="nav-item has-treeview {{ (request()->routeIs('configuracion.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link">
                         <i class="nav-item fas fa-cogs"></i>
                         <p>
@@ -282,9 +346,11 @@
 
                      </ul>
                  </li>
-                 <li class="nav-item has-treeview menu-open">
+                 @endcan
+                 @can('PERM.ADMIN')
+                 <li class="nav-item has-treeview {{ (request()->routeIs('auditoria.*')) ? 'menu-open active' : '' }}">
                     <a href="#" class="nav-link">
-                        <i class="nav-item fas fa-cogs"></i>
+                        <i class="nav-item fas fa-cog"></i>
                         <p>
                            Auditoria
                             <i class="right fas fa-angle-left"></i>
@@ -302,6 +368,30 @@
 
                      </ul>
                  </li>
+                 @endcan
+
+                 @can('PERM.ADMIN')
+                 <li class="nav-item has-treeview menu-open">
+                    <a href="#" class="nav-link">
+                        <i class="nav-item fas fa-chart-bar"></i>
+                        <p>
+                           Estadistica
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+
+                    <ul class="nav nav-treeview">
+                    <li class="nav-item">
+                        <a href="{{route('estadisticas.index')}}" class="nav-link"
+                            style="{{ (request()->routeIs('estadisticas.index')) ? 'color: #3c8dbc;' : '' }}">
+                            <i class="far fa-chart-bar nav-icon"></i>
+                            <p>Ver Estadisticas</p>
+                        </a>
+                    </li>
+
+                     </ul>
+                 </li>
+                 @endcan
 
             </ul>
         </nav>

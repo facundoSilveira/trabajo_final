@@ -17,7 +17,7 @@ class CreateTipoRecursoProveedorsTable extends Migration
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('tipo_recurso_id');
-            $table->string('proveedores_id');
+            $table->string('proveedor_id')->nullable();
             $table->softDeletes();
         });
     }

@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate \ Database \ Eloquent \ SoftDeletes;
+use App\Mail\EnvioEmail;
+use Illuminate\Support\Facades\Mail;
 class Proveedor extends Model
 {
     use SoftDeletes;
@@ -19,4 +21,21 @@ class Proveedor extends Model
     public function cabeceraMovimiento(){
         return $this->hasMany(CabeceraMovimiento::class);
     }
+
+    public function pedidos(){
+        return $this->hasMany(Pedidio::class);
+    }
+
+    public function enviarMail($pedido){
+
+        // $obj = new stdClass() ;
+        // $obj->sender = 'PC-SHOP' ;
+        // $obj->sender = $this->nombre;
+
+        // $mail = new EnvioEmail($obj) ;
+
+        Mail::send('mails.proveedor', ['pedido' => $pedido ], function ($message) {
+            $message->to($this->email)->subject('PC-SHOP');
+        });
+}
 }

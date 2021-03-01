@@ -17,17 +17,26 @@ use App\Servicio;
 use App\TipoEquipo;
 use App\TipoRecurso;
 use App\TipoServicio;
+use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Caffeinated\Shinobi\Models\Role;
+use Caffeinated\Shinobi\Concerns\HasRolesAndPermissions;
+use Caffeinated\Shinobi\Models\Permission;
 
 class GenerarSeed extends Seeder
 {
+
     /**
      * Run the database seeds.
      *
      * @return void
      */
+
+
     public function run()
     {
+
         Direccion::create([
             'calle' => 'Las heras',
             'altura' => 5,
@@ -227,5 +236,47 @@ class GenerarSeed extends Seeder
             'email' => 'pcshopapostoles@gmail.com' ,
             'logo' => '1606918123computadora-completa-amd-a4-3ghz-monitor-led-hd-156-video-hdmi.jpg'
         ]);
+
+        $administrador = User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => Hash::make('12346789') ,
+        ]);
+
+
+        $tecnico = User::create([
+            'name' => 'rober',
+            'email' => 'tecnico@tecnico.com',
+            'password' => Hash::make('12346789') ,
+        ]);
+
+        $adminRole = Role::create([
+            'name' => 'Admin',
+            'slug' => 'ADMIN',
+            'description' => 'Super usuario del sistema',
+            'special' => 'all-access'
+        ]);
+        $tecnicoRole = Role::create([
+            'name' => 'Tecnico',
+            'slug' => 'TECNICO',
+            'description' => 'Tecnico Reparador del sistema',
+        ]);
+        $permisoAdmin = Permission::create([
+            'name' => 'Permiso Admin',
+            'slug' => 'PERM.ADMIN',
+            'description' => 'Permiso de administrado del sistema',
+        ]);
+        $perisoTecnico = Permission::create([
+            'name' => 'Permiso Tecnico',
+            'slug' => 'PERM.TECNICO',
+            'description' => 'Permiso de tecnico del sistema',
+        ]);
+
+        $adminRole->syncPermissions('PERM.ADMIN');
+        $tecnicoRole->syncPermissions('PERM.TECNICO');
+
+        $administrador->assignRoles('ADMIN');
+        $tecnico->assignRoles('TECNICO');
     }
+
 }

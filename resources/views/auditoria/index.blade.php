@@ -32,12 +32,31 @@
                         <td style="text-transform:uppercase">{{$auditoria->event}}</td>
                         <td class="text-right">{{$auditoria->created_at->format('d/m/Y')}}</td>
                         <td class="text-right">{{$auditoria->created_at->format('H:i:s')}}</td>
-                        {{-- <td>{{$auditoria->user->apellido}} {{$auditoria->user->name}}</td> --}}
+                        <td>{{Auth::user()->name}}</td>
                         <td></td>
                         <td width="150px" class="text-center">
                             <a href="{{ route('auditoria.showEquipos', ['auditoria' => $auditoria->auditable_id, 'id' => $auditoria->id])}}"
                                 class="btn btn-xs btn-primary">Ver
                                 mas</a>
+
+                        </td>
+                    </tr>
+
+                    @endforeach
+
+
+                    @foreach($auditoriasServicio as $auditoria)
+                    <tr>
+                        <td>{{$auditoria->auditable_id}}</td>
+                        <td>Servicio</td>
+                        <td style="text-transform:uppercase">{{$auditoria->event}}</td>
+                        <td class="text-right">{{$auditoria->created_at->format('d/m/Y')}}</td>
+                        <td class="text-right">{{$auditoria->created_at->format('H:i:s')}}</td>
+                        <td>{{Auth::user()->name}}</td>
+                        <td></td>
+                        <td width="150px" class="text-center">
+                            <a href="{{ route('auditoria.showServicios', ['auditoria' => $auditoria->auditable_id, 'id' => $auditoria->id])}}"
+                                class="btn btn-xs btn-primary">Ver mas</a>
 
                         </td>
                     </tr>

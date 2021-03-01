@@ -10,11 +10,11 @@
     "require": {
         "php": "^7.1.3",
         "barryvdh/laravel-dompdf": "^0.8.7",
+        "caffeinated/shinobi": "4.*",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "5.8.*",
         "laravel/tinker": "^1.0",
-        "owen-it/laravel-auditing": "^10.0",
-        "spatie/laravel-permission": "^3.18"
+        "owen-it/laravel-auditing": "^10.0"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",

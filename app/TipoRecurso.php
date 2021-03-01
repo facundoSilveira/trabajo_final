@@ -16,4 +16,9 @@ class TipoRecurso extends Model
         return $this->hasMany(Modelo::class);
     }
 
+    public function proveedores()
+    {
+        return $this->hasMany(TipoRecursoProveedor::class);
+    }
+
 }
