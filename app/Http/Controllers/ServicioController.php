@@ -32,12 +32,14 @@ class ServicioController extends Controller
      */
     public function index()
     {
+        $user = Auth::user();
          //Aca voy a obtener todos los servicios guardados en la B.D y visualizarlos
          $servicios = Servicio::all();
          $tecnicos = Tecnico::all();
          $estados = Estado::all();
          $configuracion = Configuracion::first();
          //compac genera un array con la info que queremos
+         ;
          return view('servicios.index', compact('servicios', 'tecnicos', 'estados', 'configuracion'));
     }
 
@@ -135,7 +137,8 @@ class ServicioController extends Controller
      */
     public function edit(Servicio $servicio)
     {
-        return view('servicios.edit', compact('servicio'));
+        $equipos = Equipo::all();
+        return view('servicios.edit', compact('servicio', 'equipos'));
     }
 
     /**
@@ -226,12 +229,17 @@ class ServicioController extends Controller
         return redirect()->route('servicios.atender_servicio', $servicio);
     }
 
-
-    public function atender_respuesta($valor, InformeServicio $informe)
+    public function atender_respuesta1($valor, InformeServicio $informe)
     {
+
+        //return "hols perrooo";
         //return $informe;
+        $user = Auth::user();
         if($valor ==true){
-            $informe->confirmacion == true;
+            //return "hola";
+            $informe->confirmacion = true;
+            // return response()->json($informe);
+            // return $informe->confirmacion;
             $estado = $informe->servicio->historiales->last()->estado->id;
             $historial = new HistorialEstado();
             $historial->servicio_id = $informe->servicio->id;
@@ -239,11 +247,15 @@ class ServicioController extends Controller
             $historial->date = Carbon::now();
             $historial-> save();
             $informe->update();
-            return redirect()->route('mis_servicios.index', $informe->servicio)->with('success','Se cambio al estado CONFIRMADO');
 
+            return redirect()->route('mis_servicios.index')->with('success','se cambio a estado confirmado');
+            //return redirect()->route('show_servicio_espera2', $informe->slug)->with('success','Gracias por su respuesta');
 
         }else{
-            $informe->confirmacion == false;
+
+            $informe->confirmacion = false;
+
+
             //porner en false el recurso
             //return $informe->informeRecurso;
             for ($i=0; $i < sizeof( $informe->informeRecurso ) ; $i++) {
@@ -264,8 +276,60 @@ class ServicioController extends Controller
             $historial->date = Carbon::now();
             $historial-> save();
             $informe->update();
-            return redirect()->route('mis_servicios.index', $informe->servicio)->with('success','Se cambio al estado CANCELADO y se libera el recurso resevado');
+            return redirect()->route('mis_servicios.index')->with('success','se cambio a estado cancelado');
 
+        }
+
+    }
+
+    public function atender_respuesta($valor, InformeServicio $informe)
+    {
+
+        //return "hols perrooo";
+        //return $informe;
+        $user = Auth::user();
+        if($valor ==true){
+            //return "hola";
+            $informe->confirmacion = true;
+            // return response()->json($informe);
+            // return $informe->confirmacion;
+            $estado = $informe->servicio->historiales->last()->estado->id;
+            $historial = new HistorialEstado();
+            $historial->servicio_id = $informe->servicio->id;
+            $historial->estado_id = $estado + 1;
+            $historial->date = Carbon::now();
+            $historial-> save();
+            $informe->update();
+
+
+            return redirect()->route('show_servicio_espera2', $informe->slug)->with('success','Gracias por su respuesta');
+
+        }else{
+
+            $informe->confirmacion = false;
+
+
+            //porner en false el recurso
+            //return $informe->informeRecurso;
+            for ($i=0; $i < sizeof( $informe->informeRecurso ) ; $i++) {
+                $informeRecurso = $informe->informeRecurso[$i]->id;
+                $informeRecurso = InformeServicioRecurso::find($informeRecurso);
+                $informeRecurso->reserva = null;
+                $informeRecurso->update();
+
+            }
+
+          //  return $informeRecurso;
+            //print $informe->informeRecurso->reserva;
+            $estados = Estado::all();
+            $estado = $estados->get(sizeof($estados)-2) ;
+            $historial = new HistorialEstado();
+            $historial->servicio_id = $informe->servicio->id;
+            $historial->estado_id = $estado->id;
+            $historial->date = Carbon::now();
+            $historial-> save();
+            $informe->update();
+            return redirect()->route('show_servicio_espera2', $informe->slug)->with('success','Gracias por su respuesta');
 
         }
 
@@ -276,31 +340,34 @@ class ServicioController extends Controller
         return view('respuesta.prueba', compact('informe'));
     }
 
-    public function enviar_informe2(InformeServicio $informe)
+    public function enviar_informe2( $slug)
     {
+
+        $informe = InformeServicio::where('slug','=',$slug)->firstOrFail();
+
         return view('respuesta.prueba2', compact('informe'));
     }
 
-    // public function ver_respuesta(InformeServicio $informe, Servicio $servicio)
-    // {
-    //     return $informe->confirmacion;
-    //     if ($informe->confirmacion == true){
-    //         $estado = $servicio->historiales->last()->estado->id;
-    //         $historial = new HistorialEstado();
-    //         $historial->servicio_id = $servicio->id;
-    //         $historial->estado_id = $estado + 1;
-    //         $historial->date = Carbon::now();
-    //         $historial-> save();
-    //     }else{
-    //         $estado = Estado::last()->id;
-    //         $historial = new HistorialEstado();
-    //         $historial->servicio_id = $servicio->id;
-    //         $historial->estado_id = $estado;
-    //         $historial->date = Carbon::now();
-    //         $historial-> save();
-    //     }
-    //     return redirect()->route('mis_servicios.index', $servicio);
-    // }
+    public function ver_respuesta(InformeServicio $informe, Servicio $servicio)
+    {
+        //return $informe->confirmacion;
+        if ($informe->confirmacion == true){
+            $estado = $servicio->historiales->last()->estado->id;
+            $historial = new HistorialEstado();
+            $historial->servicio_id = $servicio->id;
+            $historial->estado_id = $estado + 1;
+            $historial->date = Carbon::now();
+            $historial-> save();
+        }else{
+            $estado = Estado::last()->id;
+            $historial = new HistorialEstado();
+            $historial->servicio_id = $servicio->id;
+            $historial->estado_id = $estado;
+            $historial->date = Carbon::now();
+            $historial-> save();
+        }
+        return redirect()->route('mis_servicios.index', $servicio);
+    }
     public function entregar_servicio(Servicio $servicio, Request $request){
         $estados = Estado::all();
         $estado = $estados->get(sizeof($estados)-1) ;

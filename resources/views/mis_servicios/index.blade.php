@@ -48,7 +48,10 @@
                   </div>
                   <div class="col-md-1">
                     <label for="" class="col-form-label text-md-right text-white">Filtro</label>
-                    <button id="filtrar" type="button" class="btn btn-dark">Filtrar</button>
+                    <button id="filtrar" type="button" class="btn btn-primary btn-xs">Filtrar <i
+                        class="fas fa-filter "></i></button>
+                    <button type="button" class="btn btn-secondary btn-xs mr-1" id="limpiar">Limpiar <i
+                        class="fas fa-redo "></i></button>
                   </div>
                 </div>
               </div>
@@ -293,7 +296,7 @@
               "sProcessing": "Procesando...",
               "sLengthMenu": "Ver _MENU_",
               "sZeroRecords": "No se encontraron resultados",
-              "sEmptyTable": "Todavía no se registraron pagos",
+              "sEmptyTable": "Todavía no se registraron datos",
               "sInfo": "Mostrando del _START_ al _END_ de _TOTAL_",
               "sInfoEmpty": "Mostrando  del 0 al 0 de de 0 ",
               "sInfoFiltered": "(filtrado de _MAX_ registros)",
@@ -359,7 +362,20 @@ $('.dt-buttons').css({
   <script>
     $(document).ready(function () {
       var table = $('#tabla').DataTable();
-
+      $('#limpiar').click(function(){
+        $("#tabla ").prop("selectedIndex", 0) ;
+        $("#user ").prop("selectedIndex", 0) ;
+        $('input[type=date]').val('');
+        $.fn.dataTable.ext.search.pop(
+            function( settings, data, dataIndex ) {
+                if(1){
+                    return true ;
+                }
+                return false ;
+            }
+        );
+        table.draw() ;
+    }) ;
       //un boton con id filtrar
       $('#filtrar').click(function () {
 
@@ -579,7 +595,7 @@ $('.dt-buttons').css({
           var filtros = "prioridades: "+String(filtro3)+" y Estados: "+String(filtro4);
           console.log(filtros);
           var filtradoTabla = function FuncionFiltrado(settings, data, dataIndex) {
-            if (prioridades.includes(data[1]) && Estados.includes(data[0])) {
+            if (prioridades.includes(data[1]) && estados.includes(data[0])) {
               return true;
 
             } else {

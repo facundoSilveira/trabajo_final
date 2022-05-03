@@ -43,9 +43,23 @@
             <input type="text" name="email" value="{{$cliente->email}}"class="form-control">
         </div>
 
+        <div class="form-group">
+            <label for="">Calle</label>
+            <input type="text" name="calle" value="{{$cliente->direccion->calle}}"class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Altura</label>
+            <input type="text" name="altura" value="{{$cliente->direccion->altura}}"class="form-control">
+        </div>
+
 
         <button type="submit" class="btn btn-primary">Editar</button>
     </form>
+
+    <div class="card-footer d-flex justify-content-center">
+        <a href="javascript:history.back()" class="btn btn-primary btn-sm">Volver</a>
+    </div>
 
 
 @endsection

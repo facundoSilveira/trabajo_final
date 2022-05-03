@@ -22,23 +22,29 @@
                </ul>
             </div>
             @endif
-        <div class="form-group">
-            <label for="">Foto</label>
-            <input type="file" name="foto" value="{{$equipo->foto}}">
-        </div>
-        <div class="form-group">
-            <label for="">Numero Serie</label>
-            <input type="text" name="nroSerie" value="{{$equipo->nroSerie}}"class="form-control">
-        </div>
-        <div class="form-group">
-            <label for="">Detalles Generales</label>
-            <input type="text" name="detallesGenerales" value="{{$equipo->detallesGenerales}}"class="form-control" >
-        </div>
-        
+            <div class="form-group">
+                <label for="">Foto</label>
+                <input type="file" name="foto" value="{{$equipo->foto}}">
+            </div>
+            <div class="form-group">
+                <label for="">Numero Serie</label>
+                <input type="text" name="nroSerie" value="{{$equipo->nroSerie}}"class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="">Detalles Generales</label>
+                <input type="text" name="detallesGenerales" value="{{$equipo->detallesGenerales}}"class="form-control" >
+            </div>
 
 
-        <button type="submit" class="btn btn-primary">Editar</button>
+
+            <button type="submit" class="btn btn-primary">Editar</button>
+
+        </div>
     </form>
+
+    <div class="card-footer d-flex justify-content-center">
+        <a href="javascript:history.back()" class="btn btn-primary btn-sm">Volver</a>
+    </div>
 
 
 @endsection

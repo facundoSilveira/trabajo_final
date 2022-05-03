@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use PhpParser\Node\Stmt\TryCatch;
 use SebastianBergmann\Diff\Diff;
 use OwenIt\Auditing\Contracts\Auditable;
+use PhpParser\Node\Expr\FuncCall;
 
 class Servicio extends Model implements Auditable
 {
@@ -67,6 +68,8 @@ class Servicio extends Model implements Auditable
     {
         return $this->historiales->last()->estado->nombre;
     }
+
+   
 
     public function duracionEstimada($tipoServicios)
     {

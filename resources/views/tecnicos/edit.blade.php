@@ -38,6 +38,16 @@
             <label for="">Telefono</label>
             <input type="text" name="telefono" value="{{$tecnico->telefono}}"class="form-control">
         </div>
+
+        <div class="form-group">
+            <label for="">Calle</label>
+            <input type="text" name="calle" value="{{$tecnico->direccion->calle}}"class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label for="">Altura</label>
+            <input type="text" name="altura" value="{{$tecnico->direccion->altura}}"class="form-control">
+        </div>
         <div class="form-group">
             <label for="">Email</label>
             <input type="text" name="email" value="{{$tecnico->email}}"class="form-control">

@@ -45,7 +45,7 @@
 
                 <div class="col-2">
                         <div class="form-group">
-                            <label for="">Fecha</label>
+                            <label for="" class=" col-form-label text-md-right">Fecha</label>
                             <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"class="form-control"
                             placeholder="Ingrese el fecha ">
                         </div>
@@ -90,7 +90,7 @@
 
             <div class="col-2">
                 <div class="form-group">
-                    <label for="">Cantidad</label>
+                    <label for="" class=" col-form-label text-md-right">Cantidad</label>
                     <input type="text"  id="cantidad_id" value="" class="form-control"
                     placeholder="Ingrese la cantidad de recursos">
                 </div>

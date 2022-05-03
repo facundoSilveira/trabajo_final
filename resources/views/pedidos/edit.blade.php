@@ -31,7 +31,7 @@
 
             <div class="col-2">
                 <div class="form-group">
-                    <label for="">Fecha</label>
+                    <label for="" class=" col-form-label text-md-right">Fecha</label>
                     <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"class="form-control"
                     placeholder="Ingrese el fecha ">
                 </div>
@@ -52,19 +52,21 @@
                     </select>
                 </div>
             </div>
-            <div class="col-5">
-                <div class="form-group ">
-            <label for="recursos" class=" col-form-label text-md-right">Recursos necesarios</label>
-            <ul>
-            @foreach($recursos as $recurso)
-                @if($pedido->detalles->contains('recurso_id', $recurso->id) )
+            @if ($pedido->confirmado != 1)
+                <div class="col-5">
+                    <div class="form-group ">
+                <label for="recursos" class=" col-form-label text-md-right">Recursos necesarios</label>
+                <ul>
+                @foreach($recursos as $recurso)
+                    @if($pedido->detalles->contains('recurso_id', $recurso->id) )
 
-                    <li>{{$recurso->tipo_recurso->nombre}} {{$recurso->modelo->nombre}} {{$recurso->tamaño}} {{$recurso->medida->nombre}}</li>
-                @endif
-            @endforeach
-            </ul>
+                        <li>{{$recurso->tipo_recurso->nombre}} {{$recurso->modelo->nombre}} {{$recurso->tamaño}} {{$recurso->medida->nombre}}</li>
+                    @endif
+                @endforeach
+                </ul>
+                    </div>
                 </div>
-            </div>
+            @endif
          </div>
 
 
@@ -107,7 +109,7 @@
 
             <div class="col-2">
                 <div class="form-group">
-                    <label for="">Cantidad</label>
+                    <label for="" class=" col-form-label text-md-right">Cantidad</label>
                     @foreach ($pedido->detalles as $detalle)
                     <input type="text"  id="cantidad_id" value="{{$detalle->cantidad}}" class="form-control"
                     placeholder="Ingrese la cantidad de recursos">

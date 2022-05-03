@@ -19,7 +19,7 @@ class CreateRecursosTable extends Migration
             $table->softDeletes();
             $table->integer('stock')->nullable();
             $table->integer('stockMinimo');
-            $table->string('nroSerie');
+            $table->string('nroSerie')->nullable();
             $table->string('tamaño');
             $table->float('precio')->nullable();
             $table->unsignedBigInteger('medida_id');

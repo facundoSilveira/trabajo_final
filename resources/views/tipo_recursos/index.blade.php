@@ -27,7 +27,6 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('tipo_recursos.edit', $tipoRecurso->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$tipoRecurso->id}}>Borrar</a>
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('tipo_recursos.show', $tipoRecurso->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

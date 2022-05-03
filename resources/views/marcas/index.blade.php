@@ -25,7 +25,7 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('marcas.edit', $marca->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$marca->id}}>Borrar</a>
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('marcas.show', $marca->id) }}">Ver mas</a>
+
 
                     </td>
                 </tr>

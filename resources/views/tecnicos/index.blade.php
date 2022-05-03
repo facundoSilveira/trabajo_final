@@ -31,7 +31,7 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('tecnicos.edit', $tecnico->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$tecnico->id}}>Borrar</a>
-                        <a class="btn btn-outline-light" href="{{ route('tecnicos.show', $tecnico->id) }}">Ver mas</a>
+                        <a class="btn btn-outline-light btn-sm" href="{{ route('tecnicos.show', $tecnico->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

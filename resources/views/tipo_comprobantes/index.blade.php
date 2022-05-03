@@ -24,7 +24,6 @@
                 <td class="text-right">
                     <a class="btn btn-light btn-sm" href="{{ route('tipo_comprobantes.edit', $tipo_comprobante->id) }}">Editar</a>
                     <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$tipo_comprobante->id}}>Borrar</a>
-                    <a class="btn btn-outline-light" href="{{ route('tipo_comprobantes.show', $tipo_comprobante->id) }}">Ver mas</a>
 
                 </td>
             </tr>

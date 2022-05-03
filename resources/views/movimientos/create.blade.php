@@ -23,7 +23,7 @@
         @endif
         <div class="card-body">
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <div class="form-group ">
                         <label for="proveedores" class=" col-form-label text-md-right">Proveeores</label>
                         <label for="agregar_proveedor">
@@ -41,7 +41,7 @@
                 </div>
 
 
-                <div class="col-2">
+                <div class="col-4">
                     <div class="form-group ">
                         <label for="tipoComprobante" class=" col-form-label text-md-right">Tipo Comprobante</label>
                         <label for="agregar_tipoComprobante">
@@ -58,7 +58,7 @@
                     </div>
                 </div>
 
-                <div class="col-2">
+                <div class="col-4">
                     <div class="form-group ">
                         <label for="tipo_movimiento" class=" col-form-label text-md-right">tipo movimiento</label>
                         <label for="agregar_tipo_movimiento">
@@ -74,9 +74,9 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-2">
+                <div class="col-4">
                         <div class="form-group">
-                            <label for="">Fecha</label>
+                            <label for="" class=" col-form-label text-md-right">Fecha</label>
                             <input type="date" name="fecha" id="fecha" value="{{ old('fecha') }}"class="form-control"
                             placeholder="Ingrese el fecha ">
                         </div>
@@ -84,9 +84,9 @@
 
 
 
-                <div class="col-2">
+                <div class="col-4">
                     <div class="form-group">
-                        <label for="">Fecha Comprobante</label>
+                        <label for="" class=" col-form-label text-md-right">Fecha Comprobante</label>
                         <input type="date" name="fechaComprobante" id="fechaComprobante" value="{{ old('fechaComprobante') }}"class="form-control"
                         placeholder="Ingrese el fecha del comprobante">
                     </div>
@@ -94,9 +94,9 @@
 
 
 
-                <div class="col-2">
+                <div class="col-4">
                     <div class="form-group">
-                        <label for="">Nro Comprobante</label>
+                        <label for="" class=" col-form-label text-md-right">Nro Comprobante</label>
                         <input type="text" name="numeroComprobante" id="numeroComprobante" value="{{ old('nroComprobante') }}" class="form-control"
                         placeholder="Ingrese el numero del comprobante">
                     </div>
@@ -112,7 +112,7 @@
         </div>
 
         <div class="row">
-            <div class="col-3">
+            <div class="col-4">
                 <div class="form-group ">
                     <label for="recurso" class=" col-form-label text-md-right">Recurso</label>
                     <label for="agregar_recurso">
@@ -131,16 +131,16 @@
 
 
 
-            <div class="col-2">
+            <div class="col-3">
                 <div class="form-group">
-                    <label for="">Cantidad</label>
+                    <label for="" class=" col-form-label text-md-right">Cantidad</label>
                     <input type="text"  id="cantidad_id" value="" class="form-control"
                     placeholder="Ingrese la cantidad de recursos">
                 </div>
             </div>
-            <div class="col-2">
+            <div class="col-3">
                 <div class="form-group">
-                    <label for="">Precio</label>
+                    <label for="" class=" col-form-label text-md-right">Precio</label>
                     <input type="text" name="precio" id="precio_id" value=""class="form-control"
                     placeholder="Ingrese la precio del recursos">
                 </div>

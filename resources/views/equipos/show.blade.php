@@ -20,17 +20,17 @@
                             <strong><i class="fal fa-file-alt mr-1"></i>Detalles del Equipo: <br>
                                 <p>
                                     Marca: <i class="text-muted"> {{$equipo->marca->descripcion}} </i><br>
-                                    Tipo de Equipo: {{$equipo->tipo_equipo->nombre}} <br>
+                                    Tipo de Equipo: <i class="text-muted"> {{$equipo->tipo_equipo->nombre}} </i> <br>
 
-                                    Detalles: {{$equipo->detallesGenerales}}
+                                    Detalles: <i class="text-muted"> {{$equipo->detallesGenerales}} </i> <br> 
                                 </p>
                             </strong>
                          </div>
                         <div class="col-md-4">
-                                <strong><i class="fal fa-file-alt mr-1"></i>Registrado por: <br>
+                                <strong><i class="fal fa-file-alt mr-1"></i>Cliente: <br>
                                     <p>
                                         Nombre: <i class="text-muted"> {{$equipo->cliente->apellido}} {{$equipo->cliente->nombre}} </i><br>
-                                        DNI: {{$equipo->cliente->dni}}<br>
+                                        DNI: <i class="text-muted">{{$equipo->cliente->dni}}</i><br>
 
                                     </p>
                                 </strong>

@@ -77,7 +77,7 @@ class MovimientoController extends Controller
         $cabeceraMovimiento->proveedor_id = $request->proveedor_id ;
         $cabeceraMovimiento->save();
        // return $request;
-    // try{
+     try{
         for ( $i = 0; $i < sizeof( $request->cantidad ); $i++){
             $movimiento = new Movimiento();
             $movimiento->cantidad = $request->cantidad[$i] ;
@@ -109,9 +109,9 @@ class MovimientoController extends Controller
         }
         return redirect(route('movimientos.index'))->with('success','movimiento registrado con exito!');
 
-    // }catch(Exception $e){
-    //     return redirect(route('movimientos.create'))->with('error','Cargue los datos correctamente!');
-    // }
+     }catch(Exception $e){
+         return redirect(route('movimientos.create'))->with('error','Cargue los datos correctamente!');
+    }
 
 
 

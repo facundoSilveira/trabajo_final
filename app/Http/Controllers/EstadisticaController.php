@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Cliente;
+use App\Equipo;
 use App\Estado;
 use App\HistorialEstado;
 use App\Tecnico;
@@ -12,28 +14,50 @@ use Dompdf\Renderer;
 class EstadisticaController extends Controller
 {
     //estadistica serciios tecnicos
-    public function Index()
+    public function Index(Request $request)
     {
         //codigo para tecinicos
-        $tecnicosList = Tecnico::all();
-        $tecnicos = [];
+        if($request->fecha1 == null && $request->fecha2 == null ){
+            $tecnicosList = Tecnico::all();
+            $tecnicos = [];
 
 
-        foreach ($tecnicosList as $tecnico){
-            $cantServicio = 0;
-            $sercicosTecnico = Servicio::where(['tecnico_id'=>$tecnico->id])->get();
-           // return $sercicosTecnico;
-            foreach ($sercicosTecnico as $servicio){
+            foreach ($tecnicosList as $tecnico){
+                $cantServicio = 0;
+                $sercicosTecnico = Servicio::where(['tecnico_id'=>$tecnico->id])->get();
+               // return $sercicosTecnico;
+                foreach ($sercicosTecnico as $servicio){
 
-                if (HistorialEstado::where(['servicio_id'=> $servicio->id, 'estado_id'=> 6])->exists()){
-                    $cantServicio ++;
+                    if (HistorialEstado::where(['servicio_id'=> $servicio->id, 'estado_id'=> 6])->exists()){
+                        $cantServicio ++;
 
+                    }
                 }
-            }
-            $tecnicos[$tecnico->nombre.' '.$tecnico->apellido] = $cantServicio;
+                $tecnicos[$tecnico->nombre.' '.$tecnico->apellido] = $cantServicio;
 
-        }
-        //fin de codigo para tecnicos
+            }
+        }else{
+            $tecnicosList = Tecnico::all();
+            $tecnicos = [];
+
+
+            foreach ($tecnicosList as $tecnico){
+                $cantServicio = 0;
+                $sercicosTecnico = Servicio::where(['tecnico_id'=>$tecnico->id])->whereBetween('created_at', [$request->fecha1, $request->fecha2])->get();
+               // return $sercicosTecnico;
+                foreach ($sercicosTecnico as $servicio){
+
+                    if (HistorialEstado::where(['servicio_id'=> $servicio->id, 'estado_id'=> 6])->exists()){
+                        $cantServicio ++;
+
+                    }
+                }
+                $tecnicos[$tecnico->nombre.' '.$tecnico->apellido] = $cantServicio;
+
+            }}
+
+
+
 
         //cantidad de servicios por cada estado
         $estadosList = Estado::all();
@@ -51,6 +75,8 @@ class EstadisticaController extends Controller
         }
 
 
-        return view('estadisticas.index', compact('tecnicos', 'estados'));
+        return view('estadisticas.index', compact('tecnicos', 'estados', 'clientes'));
     }
+
+
 }

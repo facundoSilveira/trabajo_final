@@ -43,7 +43,7 @@ class ProveedorController extends Controller
         $data = request()->validate([
             'nombre' => 'required',
             'cuit' => 'required|unique:proveedors',
-            'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:5',
+            'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:6',
             'email' => 'required|email|unique:proveedors',
             'direc_postal' => 'required',
         ]) ;

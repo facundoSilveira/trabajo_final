@@ -2,14 +2,14 @@
 
 @section('content')
 
-<form class="form-group" method="POST" action="/recursos/{{$recurso->id}}" enctype="multipart/form-data">
+<form class="form-group" method="POST" action="/servicios/{{$servicio->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h5>
-                    Editar Recurso
+                    Editar Servicio
                 </h5>
             </div>
 
@@ -22,18 +22,23 @@
                </ul>
             </div>
             @endif
+        <select class="seleccion form-control" name="equipo_id" id="equipo" required>
+                <option value="" disabled selected>--Seleccione un tipo de equipo--</option>
+                @foreach($equipos as $equipo)
+                <option value="{{$equipo->id}}" @if(old('equipo_id')==$equipo->id) selected
+                    @endif>{{$equipo->nroSerie}} {{$equipo->cliente->nombre}}
+                    {{$equipo->cliente->apellido}}{{$equipo->cliente->dni}} </option>
+                @endforeach
+        </select>
         <div class="form-group">
-            <label for="">stockMinimo</label>
-            <input type="text" name="stockMinimo" value="{{$recurso->stockMinimo}}"class="form-control">
+            <label for="">Problema Cliente</label>
+            <input type="text" name="problemaCliente" value="{{$servicio->problemaCliente}}"class="form-control">
         </div>
         <div class="form-group">
-            <label for="">Numero Serie</label>
-            <input type="text" name="nroSerie" value="{{$recurso->nroSerie}}"class="form-control">
+            <label for="">Contraseña</label>
+            <input type="text" name="contraseña" value="{{$servicio->contraseña}}"class="form-control">
         </div>
-        <div class="form-group">
-            <label for="">Tamaño</label>
-            <input type="text" name="tamaño" value="{{$recurso->tamaño}}"class="form-control" >
-        </div>
+
 
 
 

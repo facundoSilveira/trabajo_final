@@ -66,7 +66,7 @@
                 <input type="hidden" name="subtotal" id="subtotal" value="{{$servicio->getPrecio()}}">
                 <div class="col-4">
                     <div class="form-group">
-                        <label for="">Descripcion</label>
+                        <label for="" class=" col-form-label text-md-right">Descripción</label>
                         <textarea type="text" name="descripcion" id="Descripcion" value="{{ old('Descripcion') }}" class="form-control"
                         placeholder="Ingrese el numero del comprobante"></textarea>
                     </div>
@@ -99,7 +99,7 @@
                             <script>
                                 precioRecurso.push('{{$recurso->tipo_recurso->nombre}} ${{$recurso->precio}}')
                             </script>
-                            <option value="{{$recurso->id}}" @if(old('recur')==$recurso->id) selected
+                                <option value="{{$recurso->id}}" @if(old('recur')==$recurso->id) selected
                                 @endif>{{$recurso->tipo_recurso->nombre}} {{$recurso->modelo->nombre}} {{$recurso->tamaño}} {{$recurso->medida->nombre}}</option>
                             @endforeach
                         </select>
@@ -113,7 +113,7 @@
 
                 <div class="col-2">
                     <div class="form-group">
-                        <label for="">Cantidad</label>
+                        <label for="" class=" col-form-label text-md-right">Cantidad</label>
                         <input type="text" name="cant" id="cantidad_id" value="{{ old('cant') }}"class="form-control"
                         placeholder="Ingrese la cantidad de recursos">
                     </div>
@@ -133,7 +133,7 @@
 
                     <th scope="col">Recurso</th>
                     <th scope="col">Cantidad</th>
-                    <th scope="col">Accion</th>
+                    <th scope="col">Acción</th>
 
                 </tr>
                 </thead>

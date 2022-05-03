@@ -47,5 +47,8 @@
         <button type="submit" class="btn btn-primary">Editar</button>
     </form>
 
+    <div class="card-footer d-flex justify-content-center">
+        <a href="javascript:history.back()" class="btn btn-primary btn-sm">Volver</a>
+    </div>
 
 @endsection

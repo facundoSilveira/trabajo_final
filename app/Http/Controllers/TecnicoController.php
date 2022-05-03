@@ -114,9 +114,33 @@ class TecnicoController extends Controller
      */
     public function update(Request $request, Tecnico $tecnico)
     {
-        //funcion fill se encarga de actualizar los datos q recibimos
-        $tecnico->fill($request->all());
+
+        $data = request()->validate([
+            'nombre' => 'required',
+            'apellido' => 'required',
+            'dni' => 'required',
+            'telefono' => 'required|regex:/^([0-9\s\-\+\(\)]*)$/|min:5',
+            'email' => 'required',
+            'password' => 'required',
+        ]) ;
+        //creo un nuevo tecnico y loguardo en la B.D
+        $direccion = $tecnico->direccion;
+        $direccion->calle = $request->calle ;
+        $direccion->altura = $request->altura ;
+
+        $direccion->update();
+
+        $tecnico->nombre = $request->nombre ;
+        $tecnico->apellido = $request->apellido ;
+        $tecnico->dni = $request->dni ;
+        $tecnico->telefono = $request->telefono ;
+        $tecnico->email = $request->email ;
+        $tecnico->direccion_id = $direccion->id;
+
         $tecnico->update();
+        //funcion fill se encarga de actualizar los datos q recibimos
+        // $tecnico->fill($request->all());
+        // $tecnico->update();
         return redirect(route('tecnicos.index'))->with('success','tecnico actualizado con exito!');
     }
 

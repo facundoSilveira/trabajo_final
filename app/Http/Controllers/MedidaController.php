@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Medida;
 use Illuminate\Http\Request;
+use App\Recurso;
+use Exception;
 
 class MedidaController extends Controller
 {
@@ -14,7 +16,7 @@ class MedidaController extends Controller
      */
     public function index()
     {
-        //Aca voy a obtener todos las marcas guardadas en la B.D y visualizarlos
+        //Aca voy a obtener todos las Medidas guardadas en la B.D y visualizarlos
         $medidas = Medida::all();
         //compac genera un array con la info que queremos
         return view('medidas.index', compact('medidas'));
@@ -43,7 +45,7 @@ class MedidaController extends Controller
         'nombre' => 'required',
 
     ]) ;
-    //creo una nueva marca y loguardo en la B.D
+    //creo una nueva Medida y loguardo en la B.D
 
 
     $medidas = new Medida();
@@ -88,7 +90,7 @@ class MedidaController extends Controller
     {
         $medida->fill($request->all());
         $medida->update();
-        return redirect(route('medidas.index'))->with('success','Marca actualizado con exito!');
+        return redirect(route('medidas.index'))->with('success','Medida actualizado con exito!');
     }
 
     /**
@@ -99,7 +101,20 @@ class MedidaController extends Controller
      */
     public function destroy(Medida $medida)
     {
-        $medida->delete();
-        return redirect(route('medidas.index'))->with('success','Marca eliminado con exito!');
+        try {
+            $recursos = Recurso::all();
+            foreach ($recursos as $recurso) {
+                    if ($recurso->medida_id == $medida->id){
+                       
+                        return redirect(route('medidas.index'))->with('error','no es posible eliminar la medida ya que cuenta con recursos asignados');
+                    }
+                }
+            $medida->delete();
+            return redirect(route('medidas.index'))->with('success','Medida eliminado con exito!');
+        } catch (Exception $e) {
+            return redirect(route('medidas.index'))->with('error','no es posible eliminar la medida ya que cuenta con recursos asignados');
+
+        }
+
     }
 }

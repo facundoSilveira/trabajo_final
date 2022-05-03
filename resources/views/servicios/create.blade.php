@@ -94,6 +94,8 @@
                         <option value="{{$accesorio->id}}" @if(old('accesorio_id')==$accesorio->id) selected
                             @endif>{{$accesorio->descripcion}}</option>
                         @endforeach
+
+                        
                     </select>
 
                 </div>
@@ -188,7 +190,9 @@
         $("#tipo_servicio").select2({
             placeholder: "seleccione un tipo de servicio"
         });
-
+        $("#equipo").select2({
+            placeholder: "seleccione un equipo"
+        });
 </script>
 
 <script>

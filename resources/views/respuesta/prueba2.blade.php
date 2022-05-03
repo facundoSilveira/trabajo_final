@@ -10,7 +10,7 @@
     <title>PCshop Apostoles</title>
   </head>
   <body>
-    @if ($informe->servicio->getEstado() != "En Espera")
+    @if ($informe->servicio->getEstado() == "En Espera")
     <div class="content-fluid">
         <div class="row  justify-content-center">
             <div class="col-md-10">
@@ -58,7 +58,9 @@
         </div>
     </div>
     @else
-    <p>Su respuesta ya fue enviada, gracias</p>
+    <div class="card-body box-profile">
+        <h3>Su respuesta ya fue enviada, lo esperamos en calle andresito 456. gracias!</h3>
+    </div>
     @endif
 
 

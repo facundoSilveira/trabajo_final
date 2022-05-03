@@ -40,8 +40,8 @@
                         </div>
                     </div>
                     <div class="d-flex justify-content-center">
-                        <a class="btn btn-success btn-sm" href="{{ route('mis_servicios.confirmar', ['valor' => 1, 'informe' => $informe]) }}">confirmar</a>
-                        <a class="btn btn-danger btn-sm" href="{{ route('mis_servicios.confirmar', ['valor' => 0, 'informe' => $informe]) }}">rechazar</a>
+                        <a class="btn btn-success btn-sm" href="{{ route('mis_servicios.confirmado', ['valor' => 1, 'informe' => $informe]) }}">confirmar</a>
+                        <a class="btn btn-danger btn-sm" href="{{ route('mis_servicios.confirmado', ['valor' => 0, 'informe' => $informe]) }}">rechazar</a>
                     </div>
 
                 </div>

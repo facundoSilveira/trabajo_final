@@ -10,6 +10,7 @@ use App\ServicioTipoServicio;
 use App\TipoServicio;
 use App\Pedido;
 use App\Detalle;
+use App\Equipo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Exception;
@@ -60,15 +61,20 @@ class InformeServicioController extends Controller
 
                 'descripcion' => 'required',
                 'cantidad.*' => 'required',
-                'recurso.*' => 'required',
+
                 'tipo_servicio_id.*' => 'required'
             ]) ;
             //creo un nuevo informe y loguardo en la B.D
+            try{
+            $recursos = Recurso::all();
             $data = new stdClass();
             $data = request();
             $sinStock = collect() ;
             $recursosUtilizados = collect() ;
             $hayStock = true ;
+            // if ($request->recurso != null){
+            //     return "xdxd";
+            // }
             for ($i=0; $i < sizeof($request->recurso); $i++) {
                 $recursoOb = Recurso::find($request->recurso[$i]) ;
                 if($recursoOb->obtenerStock() < $request->cantidad[$i]){
@@ -109,7 +115,10 @@ class InformeServicioController extends Controller
             $informe->descripcion = $request->descripcion;
             $informe->servicio_id = $request->servicio_id;
             $servicio = Servicio::find($request->servicio_id);
+            $equipo = Equipo::find($servicio->equipo_id);
+
             $informe->tecnico_id = $servicio->tecnico->id;
+            $informe->slug = substr($equipo->cliente->nombre,0,3).'-'.substr($equipo->cliente->apellido,0,3).'-'.substr($equipo->nroSerie,0,4).'-'.date('d-m-y h:i:s') ;
             $informe->save();
            // return $request;
 
@@ -149,8 +158,12 @@ class InformeServicioController extends Controller
                 return redirect()->route('servicios.atender_servicio', $servicio)->with('success','no contamos con recursos para este servicio, se creo un pedido a confirmar!');
            }
             return redirect()->route('servicios.atender_servicio', $servicio);
+            }catch(Exception $e){
+                return redirect(route('informes.getServicio', $request->servicio_id))->with('error','Cargue los datos correctamente!');
 
     }
+
+}
 
     /**
      * Display the specified resource.

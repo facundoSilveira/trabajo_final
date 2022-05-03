@@ -50,7 +50,7 @@ class RecursoController extends Controller
     public function store(Request $request)
     {
         $data = request()->validate([
-            'nroSerie' => 'required|unique:recursos',
+            'nroSerie' => 'unique:recursos',
             'modelo_id' => 'required',
             'tipo_recurso_id.*' => 'required',
             'marca_recurso_id' => 'required',
@@ -65,7 +65,7 @@ class RecursoController extends Controller
          $recursos = DB::select($sql);
        //  $recursos = DB::table('recursos')->where('modelo',$request->modelo)->first();
        // return Recurso::where('tamaño', $request->tamaño)->first();
-         if ((Recurso::where('tamaño', $request->tamaño)->first()) &&  (Recurso::where('modelo_id', $request->modelo_id)->first())){
+         if ((Recurso::where('tamaño', $request->tamaño)->first()) &&  (Recurso::where('modelo_id', $request->modelo_id)->first()) && (Recurso::where('medida_id', $request->medida_id)->first())){
             return redirect()->back()->with('error','este recurso ya a sido registrado');
          }
 
@@ -76,7 +76,7 @@ class RecursoController extends Controller
         $recurso->stockMinimo = $request->stockMinimo;
         $recurso->nroSerie = $request->nroSerie ;
         $recurso->tamaño = $request->tamaño ;
-        //$recurso->precio = $request->precio ;
+        $recurso->precio = $request->precio ;
         $recurso->medida_id = $request->medida_id;
         $recurso->modelo_id = $request->modelo_id;
         $recurso->marca_recurso_id = $request->marca_recurso_id;
@@ -108,7 +108,11 @@ class RecursoController extends Controller
      */
     public function edit(Recurso $recurso)
     {
-        return view('recursos.edit', compact('recurso'));
+        $tipo_recursos = TipoRecurso::all();
+        $marcas = MarcaRecurso::all();
+        $modelos = Modelo::all();
+        $medidas = Medida::all();
+        return view('recursos.edit', compact('recurso', 'tipo_recursos', 'marcas', 'modelos', 'medidas'));
     }
 
     /**
@@ -122,7 +126,7 @@ class RecursoController extends Controller
     {
 
             //funcion fill se encarga de actualizar los datos q recibimos
-
+            $recurso->fill($request->all());
             $recurso->update();
             return redirect(route('recursos.index'))->with('success','recurso actualizado con exito!');
     }

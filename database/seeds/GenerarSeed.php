@@ -14,6 +14,7 @@ use App\Prioridad;
 use App\Proveedor;
 use App\Recurso;
 use App\Servicio;
+use App\Tecnico;
 use App\TipoEquipo;
 use App\TipoRecurso;
 use App\TipoServicio;
@@ -271,6 +272,7 @@ class GenerarSeed extends Seeder
             'slug' => 'PERM.TECNICO',
             'description' => 'Permiso de tecnico del sistema',
         ]);
+
 
         $adminRole->syncPermissions('PERM.ADMIN');
         $tecnicoRole->syncPermissions('PERM.TECNICO');

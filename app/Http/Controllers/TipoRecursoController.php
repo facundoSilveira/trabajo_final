@@ -58,8 +58,8 @@ class TipoRecursoController extends Controller
 
 
         $tipoRecurso->save();
-        
-        return redirect(route('tipo_recursos.index'))->with('success','Tipo Equipo guardado con exito!');
+
+        return redirect(route('tipo_recursos.index'))->with('success','Tipo recurso guardado con exito!');
     }
 
     /**
@@ -110,6 +110,6 @@ class TipoRecursoController extends Controller
     {
         //
         $tipoRecurso->delete();
-        return redirect(route('tipo_recursos.index'))->with('success','Tipo Equipos eliminado con exito!');
+        return redirect(route('tipo_recursos.index'))->with('success','Tipo Recurso eliminado con exito!');
     }
 }

@@ -49,8 +49,12 @@
                   </div>
                   <div class="col-md-1">
                     <label for="" class="col-form-label text-md-right text-white">Filtro</label>
-                    <button id="filtrar" type="button" class="btn btn-dark">Filtrar</button>
+                    <button id="filtrar" type="button" class="btn btn-primary btn-xs">Filtrar <i
+                        class="fas fa-filter "></i></button>
+                    <button type="button" class="btn btn-secondary btn-xs mr-1" id="limpiar">Limpiar <i
+                        class="fas fa-redo "></i></button>
                   </div>
+
                 </div>
               </div>
             </div>
@@ -62,26 +66,28 @@
             <thead>
             <tr>
 
-
+                <th scope="col">Nro</th>
                 <th scope="col">Tipo servicio</th>
-                <th scope="col">Priridad</th>
+
                 <th scope="col">Fecha Recibida</th>
                 <th scope="col">Estado</th>
                 <th scope="col">Tecnico</th>
-                <th scope="col">Contraseña</th>
+                <th scope="col">Cliente</th>
                 <th scope="col">Opciones</th>
 
             </tr>
             </thead>
             <tbody>
+
                 @foreach ($servicios as $servicio)
                 <tr>
+                    <td>{{$servicio->id}}</td>
                     <td>
                         @foreach ($servicio->tipos as $tipo )
                             {{$tipo->tipo->nombre}}
                         @endforeach
                     </td>
-                    <td>{{$servicio->prioridad->nombre}}</td>
+
                     <td class="text-right">{{ \Carbon\Carbon::create($servicio->fechaRecibida)->format('d/m/Y')}}</td>
                     <td>{{$servicio->getEstado()}}</td>
                     <td>
@@ -91,7 +97,7 @@
                         <span class="badge badge-info">{{$servicio->tecnico->nombre}} {{$servicio->tecnico->apellido}}</span>
                         @endif
                     </td>
-                    <td>{{$servicio->contraseña}}</td>
+                    <td>{{$servicio->equipo->cliente->apellido}} {{$servicio->equipo->cliente->nombre}}</td>
 
 
                     <td class="text-right">
@@ -396,8 +402,24 @@ $('.dt-buttons').css({
 
   <!-- Filtros -->
   <script>
-    $(document).ready(function () {
-      var table = $('#tabla').DataTable();
+    $(document).ready(function() {
+    var table = $('#tabla').DataTable();
+    $('#limpiar').click(function(){
+        $("#tabla ").prop("selectedIndex", 0) ;
+        $("#user ").prop("selectedIndex", 0) ;
+        $('input[type=date]').val('');
+        $.fn.dataTable.ext.search.pop(
+            function( settings, data, dataIndex ) {
+                if(1){
+                    return true ;
+                }
+                return false ;
+            }
+        );
+        table.draw() ;
+    }) ;
+    // $(document).ready(function () {
+    //   var table = $('#tabla').DataTable();
 
       //un boton con id filtrar
       $('#filtrar').click(function () {
@@ -495,7 +517,7 @@ $('.dt-buttons').css({
           console.log('filtro 2');
           var filtros = "F. desde: " + filtro1Titulo+" y F. hasta: " + filtro2Titulo;
           var filtradoTabla = function FuncionFiltrado(settings, data, dataIndex) {
-            var datearray1 = data[2].split("/");
+            var datearray1 = data[3].split("/");
             var newdate1 =   datearray1[2] + datearray1[1] + datearray1[0];
             if (desde <= newdate1 && hasta >= newdate1) {
               return true;
@@ -618,7 +640,7 @@ $('.dt-buttons').css({
           var filtros = "Tecnicos: "+String(filtro3)+" y Estados: "+String(filtro4);
           console.log(filtros);
           var filtradoTabla = function FuncionFiltrado(settings, data, dataIndex) {
-            if (tecnicos.includes(data[4]) && Estados.includes(data[3])) {
+            if (tecnicos.includes(data[4]) && estados.includes(data[3])) {
               return true;
 
             } else {

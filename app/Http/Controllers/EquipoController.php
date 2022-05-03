@@ -4,9 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Accesorio;
 use App\Equipo;
+use App\Servicio;
 use App\TipoEquipo;
 use App\Marca;
 use App\Cliente;
+use App\HistorialEstado;
+use Exception;
+
 
 use Illuminate\Http\Request;
 
@@ -143,7 +147,32 @@ class EquipoController extends Controller
     public function destroy(Equipo $equipo)
     {
         //
-        $equipo->delete();
-        return redirect(route('equipos.index'))->with('success','Equipo eliminado con exito!');
+        try {
+            $servicios = Servicio::all();
+            foreach ($servicios as $servicio) {
+
+                    if ($servicio->equipo_id == $equipo->id ){
+                        $historials = HistorialEstado::all();
+                        foreach ($historials as $historial) {
+                            if ($historial->servicio_id == $servicio->id){
+                                if ($historial->estado_id == 8){
+                                    $equipo->delete();
+
+                                    return redirect(route('equipos.index'))->with('success','equipo eliminado con exito!');
+                                }else{
+                                    return redirect(route('equipos.index'))->with('error','no es posible eliminar el equipo ya que cuenta con servicios registrados y aun no fue entregado');
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+        } catch (Exception $e) {
+            return redirect(route('equipos.index'))->with('error', 'no es posible eliminar el equipo ya que cuenta con servicios registrados');
+
+        }
+        // $equipo->delete();
+        // return redirect(route('equipos.index'))->with('success','Equipo eliminado con exito!');
     }
 }

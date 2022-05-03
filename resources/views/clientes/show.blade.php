@@ -29,6 +29,10 @@
     <input type="reset" value="Editar" class="btn btn-secondary"  onclick="location.href='/clientes/{{$cliente->id}}/edit'">
     </div>
 
+    <div class="card-footer d-flex justify-content-center">
+        <a href="javascript:history.back()" class="btn btn-primary btn-sm">Volver</a>
+    </div>
+
 
 </form>
 @endsection

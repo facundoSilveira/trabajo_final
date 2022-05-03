@@ -25,7 +25,6 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('modelos.edit', $modelo->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$modelo->id}}>Borrar</a>
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('modelos.show', $modelo->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

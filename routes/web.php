@@ -46,10 +46,13 @@ Route::post('servicios/{servicio}/agregar_tecnico', 'ServicioController@agregar_
 Route::post('servicios/{servicio}/finalizar_servicio', 'ServicioController@finalizar_servicio')->name('servicios.finalizar_servicio');// todas las rutas para el CRUD de Servicio
 Route::get('servicios/{servicio}/atender_servicio', 'ServicioController@atender_servicio')->name('servicios.atender_servicio');// todas las rutas para el CRUD de Servicio
 Route::post('marcas_ajax', 'MarcaController@storeAjax');// para el modal
+Route::post('clientes_ajax', 'ClienteController@storeAjax');// para el modal
+
 Route::get('mis_servicios', 'ServicioController@mis_servicios')->name('mis_servicios.index');
 Route::get('mis_servicios/confirmar/{valor}-{informe}', 'ServicioController@atender_respuesta')->name('mis_servicios.confirmar');
+Route::get('mis_servicios/confirmado/{valor}-{informe}', 'ServicioController@atender_respuesta1')->name('mis_servicios.confirmado');
 Route::get('mis_servicios/show_servicio_espera/{informe}', 'ServicioController@enviar_informe')->name('show_servicio_espera');
-Route::get('mis_servicios/show_servicio_espera2/{informe}', 'ServicioController@enviar_informe2')->name('show_servicio_espera2');
+Route::get('show_servicio_espera2/{informe}', 'ServicioController@enviar_informe2')->name('show_servicio_espera2');
 Route::get('ver_servicio/{servicio}', 'ServicioController@ver_servicio')->name('ver_servicio');
 Route::get('informes/{id}/getServicio', 'InformeServicioController@getServicio')->name('informes.getServicio');// todas las rutas para el CRUD de Servicio
 Route::get('servicios/{servicio}/entregar_servicio', 'ServicioController@entregar_servicio')->name('servicios.entregar_servicio');// todas las rutas para el CRUD de Servicio
@@ -65,7 +68,11 @@ Route::get('/equipoPDF', 'PdfController@equipoPDF')->name('equipo.pdf');
 Route::get('auditoria', 'AuditoriaController@index')->name('auditoria.index');
 Route::get('auditoria/equipos/{auditoria}-{id}', 'AuditoriaController@showEquipos')->name('auditoria.showEquipos');
 Route::get('auditoria/servicios/{auditoria}-{id}', 'AuditoriaController@showServicios')->name('auditoria.showServicios');
-
+Route::get('auditoria/movimientos/{movimiento}-{id}', 'AuditoriaController@showMovimientos')->name('auditoria.showMovimientos');
+Route::get('auditoria/pedidos/{pedido}-{id}', 'AuditoriaController@showPedidos')->name('auditoria.showPedidos');
+// //ajax para estadistica
+// Route::get('/estadisticas/actualizar_chart', 'EstadisticaController@actualizarChart')->name('estadisticas.actualizarChart');
+//     //   ->middleware('can:estadistica.index');
 
 Auth::routes();
 

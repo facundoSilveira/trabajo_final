@@ -42,90 +42,90 @@
             </div>
 
 
-        <div class="col-3">
-            <div class="form-group">
-                <label for="" class=" col-form-label text-md-right">Numero Serie</label>
-                <input type="text" name="nroSerie" class="form-control" placeholder="Ingrese el numero de serie">
+            <div class="col-3">
+                <div class="form-group">
+                    <label for="" class=" col-form-label text-md-right">Precio</label>
+                    <input type="text" name="precio" class="form-control" placeholder="Ingrese el precio del recurso">
+                </div>
             </div>
-        </div>
 
-        <div class="col-3">
-            <div class="form-group ">
-            <label for="marca" class=" col-form-label text-md-right">Marcas del Recurso</label>
-            <label for="agregar_marca">
-                <!-- estamos indicando a la etiqueta a que habra el modal cuyo id es modal-lg-->
-                <a role="button" type="button" href="#" title="Nueva Marca" data-toggle="modal"
-                data-target="#modal-lg" role="button"
-                data-toggle="modal" data-target="#modal-lg"
-                ><i class="fas fa-plus-circle fa-md"></i></a>
-            </label>
+            <div class="col-3">
+                <div class="form-group ">
+                    <label for="marca" class=" col-form-label text-md-right">Marcas del Recurso</label>
+                    <label for="agregar_marca">
+                        <!-- estamos indicando a la etiqueta a que habra el modal cuyo id es modal-lg-->
+                        <a role="button" type="button" href="#" title="Nueva Marca" data-toggle="modal"
+                        data-target="#modal-lg" role="button"
+                        data-toggle="modal" data-target="#modal-lg"
+                        ><i class="fas fa-plus-circle fa-md"></i></a>
+                    </label>
 
-            <select class="seleccion form-control" name="marca_recurso_id" id="marca" required>
-                <option value="" disabled selected>--Seleccione una marca--</option>
-                @foreach($marca_recursos as $marca_recurso)
-                <option value="{{$marca_recurso->id}}" @if(old('marca_recurso_id')==$marca_recurso->id) selected
-                    @endif>{{$marca_recurso->nombre}}</option>
-                @endforeach
-            </select>
-          </div>
-        </div>
-
-        <div class="col-3">
-            <div class="form-group ">
-                <label for="modelo" class=" col-form-label text-md-right">Modelos</label>
-                <label for="agregar_modelo">
-                    <a role="button" type="button" href="{{route('modelos.create')}}" title="Nueva Modelo"><i
-                            class="fas fa-plus-circle fa-md"></i></a>
-                </label>
-
-                <select class="seleccion form-control" name="modelo_id" id="modelo" required>
-                    <option value="" disabled selected>--Seleccione un tipo de equipo--</option>
-                    @foreach($modelos as $modelo)
-                    <option value="{{$modelo->id}}" @if(old('modelo_id')==$modelo->id) selected
-                        @endif>{{$modelo->nombre}} </option>
-                    @endforeach
-                </select>
+                    <select class="seleccion form-control" name="marca_recurso_id" id="marca" required>
+                        <option value="" disabled selected>--Seleccione una marca--</option>
+                        @foreach($marca_recursos as $marca_recurso)
+                        <option value="{{$marca_recurso->id}}" @if(old('marca_recurso_id')==$marca_recurso->id) selected
+                            @endif>{{$marca_recurso->nombre}}</option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
-        </div>
-        <div class="col-3">
-            <div class="form-group ">
-                <label for="medida" class=" col-form-label text-md-right">Medidas</label>
-                <label for="agregar_medida">
-                    <a role="button" type="button" href="{{route('medidas.create')}}" title="Nueva Medida"><i
-                            class="fas fa-plus-circle fa-md"></i></a>
-                </label>
 
-                <select class="seleccion form-control" name="medida_id" id="medida" required>
-                    <option value="" disabled selected>--Seleccione un tipo de equipo--</option>
-                    @foreach($medidas as $medida)
-                    <option value="{{$medida->id}}" @if(old('medida_id')==$medida->id) selected
-                        @endif>{{$medida->nombre}} </option>
-                    @endforeach
-                </select>
+
+            <div class="col-3">
+                <div class="form-group ">
+                    <label for="modelo" class=" col-form-label text-md-right">Modelos</label>
+                    <label for="agregar_modelo">
+                        <a role="button" type="button" href="{{route('modelos.create')}}" title="Nueva Modelo"><i
+                                class="fas fa-plus-circle fa-md"></i></a>
+                    </label>
+
+                    <select class="seleccion form-control" name="modelo_id" id="modelo" required>
+                        <option value="" disabled selected>--Seleccione un modelo--</option>
+                        @foreach($modelos as $modelo)
+                        <option value="{{$modelo->id}}" @if(old('modelo_id')==$modelo->id) selected
+                            @endif>{{$modelo->nombre}} </option>
+                        @endforeach
+                    </select>
+                </div>
             </div>
+            <div class="col-4">
+                <div class="form-group ">
+                    <label for="medida" class=" col-form-label text-md-right">Medidas</label>
+                    <label for="agregar_medida">
+                        <a role="button" type="button" href="{{route('medidas.create')}}" title="Nueva Medida"><i
+                                class="fas fa-plus-circle fa-md"></i></a>
+                    </label>
+
+                    <select class="seleccion form-control" name="medida_id" id="medida" required>
+                        <option value="" disabled selected>--Seleccione una medida-</option>
+                        @foreach($medidas as $medida)
+                        <option value="{{$medida->id}}" @if(old('medida_id')==$medida->id) selected
+                            @endif>{{$medida->nombre}} </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="form-group ">
+                    <label for="nombre" class=" col-form-label text-md-right">Tamaño</label>
+                    <input type="text" name="tamaño" class="form-control" id="tamaño" placeholder="Ingrese el tamaño"{{ old('tamaño')}}>
+                </div>
+            </div>
+
+            <div class="col-4">
+                <div class="form-group ">
+                    <label for="nombre" class=" col-form-label text-md-right">Stock Minimo</label>
+                    <input type="text" name="stockMinimo" id="stockMinimo" class="form-control" placeholder="Ingrese el stock minimo del recurso" {{old('stockMinimo')}}>
+                </div>
+            </div>
+
         </div>
-
-
     </div>
 
-    <div class="row">
-        <div class="col-8">
-            <div class="form-group ">
-                <label for="nombre">Tamaño</label>
-                <textarea name="tamaño" id="tamaño" cols="30" rows="5" class="form-control"
-                    placeholder="Ingrese los detalles generales">{{ old('tamaño') }}</textarea>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-8">
-            <div class="form-group ">
-                <label for="nombre">Stock Minimo</label>
-                <textarea name="stockMinimo" id="stockMinimo" cols="30" rows="5" class="form-control"
-                    placeholder="Ingrese los detalles generales">{{ old('stockMinimo') }}</textarea>
-            </div>
-        </div>
-    </div>
+
+
+
+
 
         <div class="card-footer float">
             <div class="float-right">

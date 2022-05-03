@@ -25,7 +25,6 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('prioridades.edit', $prioridad->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$prioridad->id}}>Borrar</a>
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('prioridades.show', $prioridad->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

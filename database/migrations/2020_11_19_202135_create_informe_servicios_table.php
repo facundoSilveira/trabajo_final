@@ -20,6 +20,7 @@ class CreateInformeServiciosTable extends Migration
             $table->string('problemaTecnico')->nullable();
             $table->string('descripcion')->nullable();
             $table->boolean('confirmacion')->nullable();
+            $table->string('slug')->unique();
             $table->softDeletes();
             $table->unsignedBigInteger('servicio_id');
             $table->foreign('servicio_id')->references('id')->on('servicios');

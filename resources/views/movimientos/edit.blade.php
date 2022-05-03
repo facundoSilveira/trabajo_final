@@ -2,14 +2,14 @@
 
 @section('content')
 
-<form class="form-group" method="POST" action="/clientes/{{$cliente->id}}" enctype="multipart/form-data">
+<form class="form-group" method="POST" action="/movimientos/{{$movimiento->id}}" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
         <div class="card card-primary card-outline">
             <div class="card-header">
                 <h5>
-                    Editar Cliente
+                    Editar Movimiento
                 </h5>
             </div>
 

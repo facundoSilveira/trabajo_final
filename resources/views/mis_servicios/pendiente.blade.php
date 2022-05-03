@@ -83,14 +83,11 @@
     <!-- /.col -->
     <div class="col-md-8">
         <div class="card">
-            <div class="card-header p-2">
-                <ul class="nav nav-pills">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#detalleservicio" data-toggle="tab">Detalle</a>
-                    </li>
-
-                </ul>
-            </div><!-- /.card-header -->
+            <div class="card-header">
+                <h5>
+                    Detalle
+                </h5>
+            </div>
             <div class="card-body">
                 <div class="tab-content">
                     <div class="active tab-pane" id="detalleservicio">
@@ -100,7 +97,7 @@
                         <dl class="row" style="margin-left: 1%">
                             <dt class="col-sm-3">Fecha Recibido</dt>
                             <dd class="col-sm-8 text-muted">
-                                {{ $servicio->fechaRecibida}}
+                                {{ \Carbon\Carbon::create($servicio->fechaRecibida)->format('d/m/Y')}}
                             </dd>
                         </dl>
 
@@ -110,7 +107,23 @@
                         </dl>
 
 
+                        <div class="text-muted" style="font-family: 'Open Sans', serif;">EQUIPO</div>
+                        <hr style="margin-bottom: 1%; margin-top: 0%">
+                        <dl class="row" style="margin-left: 1%">
+                            <dt class="col-sm-3">Tipo de Equipo</dt>
+                            <dd class="col-sm-8 text-muted">
+                                {{ $servicio->equipo->tipo_equipo->nombre}}
+                            </dd>
+                        </dl>
 
+                        <dl class="row" style="margin-left: 1%">
+                            <dt class="col-sm-3">Nro de serie</dt>
+                            <dd class="col-sm-8 text-muted">{{ $servicio->equipo->nroSerie }}</dd>
+                        </dl>
+                        <dl class="row" style="margin-left: 1%">
+                            <dt class="col-sm-3">Contraseña</dt>
+                            <dd class="col-sm-8 text-muted">{{ $servicio->contraseña }}</dd>
+                        </dl>
                         <div class="text-muted" style="font-family: 'Open Sans', serif;">CLIENTE</div>
                         <hr style="margin-bottom: 1%; margin-top: 0%">
                         <dl class="row" style="margin-left: 1%">
@@ -130,7 +143,7 @@
                             <dd class="col-sm-8 text-muted">{{ $servicio->equipo->cliente->telefono}}</dd>
                         </dl>
                         <dl class="row" style="margin-left: 1%">
-                            <dt class="col-sm-3">Teléfono</dt>
+                            <dt class="col-sm-3">Email</dt>
                             <dd class="col-sm-8 text-muted">{{ $servicio->equipo->cliente->email }}</dd>
                         </dl>
 

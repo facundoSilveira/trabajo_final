@@ -15,8 +15,8 @@
 
                 <ul>
                 @foreach ($pedido->detalles as $det)
-                    <li>Nombre:  {{ $det->recurso->tipo_recurso->nombre }} Cantidad: {{ $det->cantidad}} </li>
-                    
+                    <li>Nombre:  {{ $det->recurso->tipo_recurso->nombre }}  Cantidad: {{ $det->cantidad}} </li>
+
                     <br>
                  @endforeach
 

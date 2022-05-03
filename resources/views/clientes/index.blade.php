@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header">Clientes
+    <div class="card-header">xxxx
         <a class="btn btn-primary btn-sm float-right text-white" href="{{route('clientes.create')}}">Nuevo</a>
     </div>
 
@@ -31,7 +31,7 @@
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('clientes.edit', $cliente->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$cliente->id}}>Borrar</a>
-                        <a class="btn btn-outline-light" href="{{ route('clientes.show', $cliente->id) }}">Ver mas</a>
+                        <a class="btn btn-outline-light btn-sm" href="{{ route('clientes.show', $cliente->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

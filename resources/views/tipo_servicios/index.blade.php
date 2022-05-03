@@ -24,11 +24,12 @@
                     <td>{{$tipoServicio->id}}</td>
                     <td>{{$tipoServicio->nombre}}</td>
                     <td>{{$tipoServicio->descripcion}}</td>
+                    <td>{{$tipoServicio->precio}}</td>
+
 
                     <td class="text-right">
                         <a class="btn btn-light btn-sm" href="{{ route('tipo_servicios.edit', $tipoServicio->id) }}">Editar</a>
                         <a class="btn btn-danger btn-sm text-white delete" val-palabra={{$tipoServicio->id}}>Borrar</a>
-                        <a class="btn btn-outline-light btn-sm" href="{{ route('tipo_servicios.show', $tipoServicio->id) }}">Ver mas</a>
 
                     </td>
                 </tr>

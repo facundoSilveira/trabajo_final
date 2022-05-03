@@ -8,6 +8,7 @@ use App\Proveedor;
 use App\Recurso;
 use Illuminate\Http\Request;
 use PhpParser\Node\Expr\New_;
+use Exception;
 
 class PedidoController extends Controller
 {
@@ -59,7 +60,7 @@ class PedidoController extends Controller
         //
 
        // return $request;
-    // try{
+     try{
         $pedido= new Pedido();
         $pedido->fecha = $request->fecha ;
         $pedido->proveedor_id = $request->proveedor_id ;
@@ -73,7 +74,7 @@ class PedidoController extends Controller
 
             $detalle->save();
            // return $movimiento;
-          ;
+
           //  print 'recurso->stock';
 
 
@@ -86,7 +87,11 @@ class PedidoController extends Controller
 
        // return "ok";
         return redirect(route('pedidos.index'))->with('success','pedido registrado con exito!');
-    }
+    }catch(Exception $e){
+        return redirect(route('pedidos.create'))->with('error','Cargue los datos correctamente!');
+   }
+
+}
 
     /**
      * Display the specified resource.
@@ -97,6 +102,8 @@ class PedidoController extends Controller
     public function show(Pedido $pedido)
     {
         //
+        $detalles = detalle::all();
+        return view('pedidos.show', compact('pedido', 'detalles'));
     }
 
     /**

@@ -1,9 +1,12 @@
 @extends('admin-lte.index')
 
 @section('content')
+
 <div class="card">
+    <form class="form-group " method="GET" enctype="multipart/form-data" action={{route("estadisticas.index")}}>
     <div class="card-header">Servicios finalizado por tecnicos
 
+    </form>
     </div>
 
     <div class="card-body">
@@ -19,12 +22,14 @@
     <div class="card-body">
         <canvas id="estadosChart" style="min-height: 500px; height: 500px; max-height: 500px; max-width: 100%;"></canvas>
     </div>
+
 </div>
 
 
 
 @endsection
 @push('scripts')
+
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
 {{-- inicializamos nuestros labels y nuestros datas --}}
@@ -34,6 +39,8 @@
     var dataEstados = [];
     var dataTecnicos = [];
     dataTecnicos = []
+
+
     colors = ["#98FFB7", "#74C9E8","#A38CFF","#FFDB80","#EAFFA6","#C596FF", "#7DE8E6","#FFEC59","#E8E3FF","#B5E2FF","#D599E8", "#88EBAC","#A5EBA4","#FFE078","#7E7DFF","#81C8EB", "#D1FEED","#C4EBBE","#E1FCEE","#F3E1FD","#96FFB7", "#3DC1EB","#FFD359","#A296FF","#96FFFC","#E6E3FE", "#67EBBC","#DE96FF","#E3FFFC"];
 
 </script>
@@ -52,6 +59,8 @@
     dataEstados.push(" {{ $valor }} ");
 </script>
 @endforeach
+
+
 
 {{-- primera parte configura, 2da crea --}}
 <script>
@@ -103,6 +112,7 @@
         labels: labelsTecnicos,
 
         datasets: [{
+            label: "Finalizados",
             data: dataTecnicos,
             borderColor: "#14B517",
             backgroundColor: colors,
@@ -114,6 +124,8 @@
     options: chartOptions
     })
 </script>
+
+
 
 <script>
 
@@ -137,5 +149,7 @@
             }
             }
         })
+
+
 </script>
 @endpush
